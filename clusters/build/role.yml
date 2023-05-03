@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: eksctl
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - serviceaccounts
+      - namespaces
+    verbs:
+      - '*'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: eksctl
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: eksctl
+subjects:
+  - kind: Group
+    name: eksctl
