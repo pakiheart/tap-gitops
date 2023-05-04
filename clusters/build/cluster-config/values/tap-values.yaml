@@ -27,7 +27,7 @@ tap_install:
 
     grype:
       namespace: dev
-      targetImagePullSecret: "registries-credentials"
+      targetImagePullSecret: "registry-credentials"
       metadataStore:
         url: "https://metadata-store.view.tap.raltaf.io"
         caSecret:
