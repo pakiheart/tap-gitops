@@ -43,14 +43,14 @@ tap_install:
 
     namespace_provisioner:
       controller: false
-        gitops_install:
-          url: ssh://git@github.com/pakiheart/tap-gitops
-          ref: origin/main
-          subPath: ns-provisioner
-          secretRef:
-            name: sync-git-ssh
-            namespace: tanzu-sync
-            create_export: true
+      gitops_install:
+        url: ssh://git@github.com/pakiheart/tap-gitops
+        ref: origin/main
+        subPath: ns-provisioner
+        secretRef:
+          name: sync-git-ssh
+          namespace: tanzu-sync
+          create_export: true
       # - git:
       #     url: ssh://git@github.com/Mpluya/tap-namespaces
       #     ref: origin/main
