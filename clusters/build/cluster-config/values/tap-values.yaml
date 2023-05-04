@@ -42,16 +42,16 @@ tap_install:
         url: ""
 
     namespace_provisioner:
-      controller: true
-      # additional_sources:
-      # - git:
-      #     url: ssh://git@github.com/pakiheart/tap-namespaces
-      #     ref: origin/main
-      #     subPath: custom-resources
-      #     secretRef:
-      #       name: sync-git-ssh
-      #       namespace: tanzu-sync
-      #   path: _ytt_lib/custom-resources
+      controller: false
+      additional_sources:
+      - git:
+          url: ssh://git@github.com/pakiheart/tap-gitops
+          ref: origin/main
+          subPath: ns-provisioner
+          secretRef:
+            name: sync-git-ssh-too
+            namespace: tanzu-sync
+            create_export: true
       # - git:
       #     url: ssh://git@github.com/Mpluya/tap-namespaces
       #     ref: origin/main
