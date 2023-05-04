@@ -49,7 +49,7 @@ tap_install:
           ref: origin/main
           subPath: ns-provisioner
           secretRef:
-            name: sync-git-ssh-too
+            name: sync-git-ssh
             namespace: tanzu-sync
             create_export: true
       # - git:
