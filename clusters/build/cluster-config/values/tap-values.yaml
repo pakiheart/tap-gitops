@@ -1,0 +1,80 @@
+---
+tap_install:
+  values:
+    profile: build
+    ceip_policy_disclosed: true
+
+    shared:
+      ingress_domain: build.prep.tapsme.org
+      image_registry:  
+        project_path: "registry.harbor.learn.tapsme.org/tap-build"
+
+    supply_chain: testing_scanning
+
+    ootb_supply_chain_testing_scanning:
+      gitops:
+        ssh_secret: "git-auth"
+        server_address: "ssh://git@github.com"
+        repository_owner: "pakiheart"
+        repository_name: "tap-workload-config-repo"
+        branch: main
+      
+      scanning:
+        image:
+          policy: lax-scan-policy
+        source:
+          policy: lax-scan-policy
+
+    grype:
+      namespace: dev
+      targetImagePullSecret: "registries-credentials"
+      metadataStore:
+        url: "https://metadata-store.view.tap.raltaf.io"
+        caSecret:
+          name: store-ca-cert
+          importFromNamespace: metadata-store-secrets
+        authSecret:
+          name: store-auth-token
+          importFromNamespace: metadata-store-secrets
+
+    scanning:
+      metadataStore:
+        url: ""
+
+    namespace_provisioner:
+      controller: true
+      # additional_sources:
+      # - git:
+      #     url: ssh://git@github.com/pakiheart/tap-namespaces
+      #     ref: origin/main
+      #     subPath: custom-resources
+      #     secretRef:
+      #       name: sync-git-ssh
+      #       namespace: tanzu-sync
+      #   path: _ytt_lib/custom-resources
+      # - git:
+      #     url: ssh://git@github.com/Mpluya/tap-namespaces
+      #     ref: origin/main
+      #     subPath: credentials
+      #     secretRef:
+      #       name: sync-git-ssh-also
+      #       namespace: tanzu-sync
+      #       create_export: true
+      #   path: _ytt_lib/workload-creds
+      # gitops_install:
+      #   ref: origin/main
+      #   subPath: ns-provisioner-base
+      #   url: ssh://git@github.com/Mpluya/tap-namespaces
+      #   secretRef:
+      #     name: sync-git-ssh-too
+      #     namespace: tanzu-sync
+      #     create_export: true
+      # import_data_values_secrets:
+      # - name: tenant-secrets
+      #   namespace: tap-install
+      #   create_export: true
+      # overlay_secrets:
+      # - name: workload-git-ssh-overlay
+      #   namespace: tap-install
+      #   create_export: true
+        
