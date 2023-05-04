@@ -43,8 +43,7 @@ tap_install:
 
     namespace_provisioner:
       controller: false
-      additional_sources:
-      - git:
+        gitops_install:
           url: ssh://git@github.com/pakiheart/tap-gitops
           ref: origin/main
           subPath: ns-provisioner
