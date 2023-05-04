@@ -1,28 +1,31 @@
-profile: view
-ceip_policy_disclosed: FALSE-OR-TRUE-VALUE # Installation fails if this is not set to true. Not a string.
+---
+tap_install:
+  values:
+    profile: view
+    ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
 
-shared:
-  ingress_domain: view.rap.raltaf.io
-  kubernetes_version: 1.24
-  
-contour:
-  envoy:
-    service:
-      type: LoadBalancer # NodePort can be used if your Kubernetes cluster doesn't support LoadBalancing.
+    shared:
+      ingress_domain: view.rap.raltaf.io
+      kubernetes_version: 1.24
+      
+    contour:
+      envoy:
+        service:
+          type: LoadBalancer # NodePort can be used if your Kubernetes cluster doesn't support LoadBalancing.
 
-tap_gui:
-  service_type: ClusterIP
-  app_config:
-    app:
-      baseUrl: http://tap-gui.tap.raltaf.io
-    catalog:
-      locations:
-        - type: url
-          target: https://github.com/pakiheart/yel-catalog/blob/main/catalog-info.yaml
-    backend:
-      baseUrl: http://tap-gui.tap.raltaf.io
-      cors:
-        origin: http://tap-gui.tap.raltaf.io
+    tap_gui:
+      service_type: ClusterIP
+      app_config:
+        app:
+          baseUrl: http://tap-gui.tap.raltaf.io
+        catalog:
+          locations:
+            - type: url
+              target: https://github.com/pakiheart/yel-catalog/blob/main/catalog-info.yaml
+        backend:
+          baseUrl: http://tap-gui.tap.raltaf.io
+          cors:
+            origin: http://tap-gui.tap.raltaf.io
 
-appliveview:
-  ingressEnabled: true
+    appliveview:
+      ingressEnabled: true
