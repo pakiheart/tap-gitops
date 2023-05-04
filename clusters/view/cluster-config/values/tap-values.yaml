@@ -5,7 +5,7 @@ tap_install:
     ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
 
     shared:
-      ingress_domain: view.rap.raltaf.io
+      ingress_domain: view.tap.raltaf.io
       
     contour:
       envoy:
