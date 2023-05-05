@@ -9,9 +9,9 @@ tap_install:
       image_registry:  
         project_path: "registry.harbor.learn.tapsme.org/tap-build"
 
-    supply_chain: testing_scanning
+    supply_chain: basic
 
-    ootb_supply_chain_testing_scanning:
+    ootb_supply_chain_basic:
       gitops:
         ssh_secret: ""
         # ssh_secret: "sync-git-ssh"
