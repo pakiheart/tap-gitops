@@ -5,7 +5,7 @@ tap_install:
     ceip_policy_disclosed: true
 
     shared:
-      ingress_domain: build.prep.tapsme.org
+      ingress_domain: build.tap.raltaf.io
       image_registry:  
         project_path: "registry.harbor.learn.tapsme.org/tap-build"
 
