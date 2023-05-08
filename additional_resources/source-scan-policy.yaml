@@ -8,7 +8,6 @@ apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
 kind: ScanPolicy
 metadata:
   name: source-scan-policy
-  namespace: mae
   labels:
     app.kubernetes.io/part-of: scan-system #! This label is required to have policy visible in tap-gui, but the value can be anything
 spec:
