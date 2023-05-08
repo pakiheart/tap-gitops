@@ -1,0 +1,126 @@
+#@ load("@ytt:data", "data")
+#@ def in_list(key, list):
+#@  return hasattr(data.values.tap_values, key) and (data.values.tap_values[key] in list)
+#@ end
+#@ if/end in_list('supply_chain', ['testing_scanning']) and in_list('profile', ['full', 'iterate', 'build']) and hasattr(data.values, "scanpolicies") and 'image-scan-policy' in data.values.scanpolicies:
+---
+apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
+kind: ScanPolicy
+metadata:
+  name: image-scan-policy
+  labels:
+    app.kubernetes.io/part-of: scan-system #! This label is required to have policy visible in tap-gui, but the value can be anything
+spec:
+  regoFile: |
+    package main
+
+    # Accepted Values: "Critical", "High", "Medium", "Low", "Negligible", "UnknownSeverity"
+    notAllowedSeverities := ["Critical","High","UnknownSeverity"]
+
+    # List of acceptable risks.  Must specify the rationale, subjective risk level, and expiration date.  Example:
+    # {
+    #   "cve": "GHSA-36p3-wjmg-h94x",
+    #   "rationale": "CVE is for spring-boot versions < 2.6.6.  We are running 2.7.3.  However grype scanner can not read derived versions from POM files, so it can't determine the package version and is reporting vulnerable.  This is limitation of grype with java POM."
+    # }
+    falsePositiveCves := [
+    ]
+
+    # List of acceptable risks.  Must specify the rationale, subjective risk level, and expiration date.  Example:
+    # {
+    #   "cve": "CVE-2016-1000027",
+    #   "rationale": "The hello application source has been reviewed and code paths analyzed.  Spring team does not intend to change this and disputes its rating.  Security team has agreed to ignore. https://nvd.nist.gov/vuln/detail/CVE-2016-1000027",
+    #   "subjectiveRiskLevel": "Low",
+    #   "expiration": "2022-Dec-31"
+    # }
+    acceptableRiskCves := [
+      {
+        "cve": "CVE-2021-43877",
+        "rationale": "Microsoft has not released as fix since reported.  Nothing we can do.  Security team has agreed to ignore. https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-43877",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      },
+      {
+        "cve": "GHSA-8f7f-vqg5-jrv9",
+        "rationale": "Microsoft has not released as fix since reported.  Nothing we can do. This is a Demo microservice.",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      },
+      {
+        "cve": "GHSA-7jgj-8wvc-jh57",
+        "rationale": "Microsoft has not released as fix since reported.  Nothing we can do. This is a Demo microservice.",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      },
+      {
+        "cve": "GHSA-5f2m-466j-3848",
+        "rationale": "Microsoft has not released as fix since reported.  Nothing we can do. This is a Demo microservice.",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      },
+      {
+        "cve": "GHSA-xhfc-gr8f-ffwc",
+        "rationale": "Microsoft has not released as fix since reported.  Nothing we can do. This is a Demo microservice.",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      },
+      {
+        "cve": "GHSA-cmhx-cq75-c4mj",
+        "rationale": "Microsoft has not released as fix since reported.  Nothing we can do. This is a Demo microservice.",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      },
+      {
+        "cve": "CVE-2023-0286",
+        "rationale": "Demo app. Additional research needed - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-0286",
+        "subjectiveRiskLevel": "High",
+        "expiration": "2023-Mar-31"
+      }
+    ]
+
+    contains(arr1, elem) = true {
+      arr1[_] = elem
+    } else = false { true }
+
+    foundInFalsePositiveList(arr2, elem) = true {
+      arr2[_].cve = elem
+    } else = false { true }
+
+    foundInAcceptableRiskList(array, elem) = true {
+      array[_].cve = elem
+      curr_time := time.now_ns()
+      date_format := "2006-Jan-02"
+      expire_time := time.parse_ns(date_format, array[_].expiration)
+      curr_time < expire_time
+    } else = false { true }
+
+    # Custom Acceptable Risk Rule.  Report safe if found in acceptabile risk list and accepted risk is not expired
+    isSafe(match) {
+      ignore := foundInAcceptableRiskList(acceptableRiskCves, match.id)
+      ignore
+    }
+
+    # Custom False Positive rule.  Report safe if found in false positive list
+    isSafe(match) {
+      ignore := foundInFalsePositiveList(falsePositiveCves, match.id)
+      ignore
+    }
+
+    # OOTB Safe if severity is in severity allow list
+    isSafe(match) {
+      severities := { e | e := match.ratings.rating.severity } | { e | e := match.ratings.rating[_].severity }
+      some i
+      fails := contains(notAllowedSeverities, severities[i])
+      not fails
+    }
+
+    deny[msg] {
+      comps := { e | e := input.bom.components.component } | { e | e := input.bom.components.component[_] }
+      some i
+      comp := comps[i]
+      vulns := { e | e := comp.vulnerabilities.vulnerability } | { e | e := comp.vulnerabilities.vulnerability[_] }
+      some j
+      vuln := vulns[j]
+      ratings := { e | e := vuln.ratings.rating.severity } | { e | e := vuln.ratings.rating[_].severity }
+      not isSafe(vuln)
+      msg = sprintf("CVE %s %s %s", [comp.name, vuln.id, ratings])
+    }

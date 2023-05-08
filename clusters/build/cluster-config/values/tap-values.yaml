@@ -22,11 +22,11 @@ tap_install:
         # branch: main
         # namespace: tanzu-sync
       
-      scanning:
-        image:
-          policy: lax-scan-policy
-        source:
-          policy: lax-scan-policy
+      # scanning:
+      #   image:
+      #     policy: lax-scan-policy
+      #   source:
+      #     policy: lax-scan-policy
 
     grype:
       namespace: dev
@@ -46,16 +46,16 @@ tap_install:
 
     namespace_provisioner:
       controller: false
-      # additional_sources:
-      # - git:
-      #   url: ssh://git@github.com/pakiheart/tap-gitops
-      #   ref: origin/main
-      #   subPath: credentials
-      #   secretRef:
-      #     name: sync-git-ssh-2
-      #     namespace: tanzu-sync
-      #     create_export: true
-      #   path: _ytt_lib/workload-creds
+      additional_sources:
+      - git:
+        url: ssh://git@github.com/pakiheart/tap-gitops
+        ref: origin/main
+        subPath: additional_resources
+        secretRef:
+          name: sync-git-ssh-2
+          namespace: tanzu-sync
+          create_export: true
+        path: _ytt_lib/workload-additional-resources
       gitops_install:
         url: ssh://git@github.com/pakiheart/tap-gitops
         ref: origin/main
