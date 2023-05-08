@@ -25,7 +25,7 @@ spec:
   data:
   - secretKey: auth_token
     remoteRef:
-      key: dev/tap-build/tap/tenant-install-secrets
+      key: dev/ra-tap-build/tap/tenant-install-secrets
       property: auth_token
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
