@@ -6,7 +6,7 @@ tap_install:
 
     shared:
       ingress_domain: view.tap.raltaf.io
-      ingress_issuer: letsencrypt-production
+#      ingress_issuer: letsencrypt-production
       
     contour:
       envoy:
