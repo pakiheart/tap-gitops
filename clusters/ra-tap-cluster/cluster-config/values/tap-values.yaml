@@ -1,0 +1,37 @@
+---
+tap_install:
+  values:
+    profile: view
+    ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
+
+    shared:
+      ingress_domain: view.tap.raltaf.io
+      ingress_issuer: letsencrypt-production
+      
+    contour:
+      envoy:
+        service:
+          type: LoadBalancer # NodePort can be used if your Kubernetes cluster doesn't support LoadBalancing.
+
+    tap_gui:
+      metadataStoreAutoconfiguration: true
+      service_type: ClusterIP
+      app_config:
+        app:
+          baseUrl: https://tap-gui1.view.tap.raltaf.io
+        catalog:
+          locations:
+            - type: url
+              target: https://github.com/pakiheart/yel-catalog/blob/main/catalog-info.yaml
+        backend:
+          baseUrl: https://tap-gui1.view.tap.raltaf.io
+          cors:
+            origin: https://tap-gui1.view.tap.raltaf.io
+
+    appliveview:
+      ingressEnabled: true
+
+    metadata_store:
+      ingress_enabled: "true"
+      app_service_type: "ClusterIP"
+      ns_for_export_app_cert: "*"  
