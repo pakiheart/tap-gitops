@@ -15,4 +15,4 @@ spec:
   refreshInterval: "1m"
   data:
     - secretKey: tap-gui-cert-values.yaml
-      remoteRef: #@ data.values.tap_install.secrets.eso.remote_refs.tap-gui-cert-values.tap-gui-cert-values_yaml
+      remoteRef: #@ data.values.secrets.eso.remote_refs.tap-gui-cert-values.tap-gui-cert-values_yaml
