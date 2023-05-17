@@ -13,4 +13,4 @@ tap_install:
             property: tls.crt
           tls.key:
             key: dev/ra-tap-view/tap/tap-gui-cert-values
-            property: tls.crt
+            property: tls.key
