@@ -14,11 +14,12 @@ spec:
     kind: SecretStore
   refreshInterval: "1m"
   target:
-    type: kubernetes.io/tls
-    data:
-      ca.crt: "{{ .ca_crt | b64dec }}"
-      tls.crt: "{{ .tls_crt | b64dec }}"
-      tls.key: "{{ .tls_key | b64dec }}"
+    template:
+      type: kubernetes.io/tls
+      data:
+        ca.crt: "{{ .ca_crt | b64dec }}"
+        tls.crt: "{{ .tls_crt | b64dec }}"
+        tls.key: "{{ .tls_key | b64dec }}"
 
   data:
     - secretKey: tls_crt
