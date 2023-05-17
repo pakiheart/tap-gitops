@@ -10,7 +10,7 @@ metadata:
     kapp.k14s.io/change-rule.0: "upsert after upserting eso/secretstore"
 spec:
   secretStoreRef:
-    name: tap-gui-cert-store
+    name: tap-install-secrets
     kind: SecretStore
   refreshInterval: "1m"
   data:
