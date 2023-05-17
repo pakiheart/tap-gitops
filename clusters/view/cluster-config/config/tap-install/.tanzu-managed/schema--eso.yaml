@@ -29,5 +29,5 @@ tap_install:
           #@schema/type any=True
           sensitive_tap_values_yaml: {}
         tap_gui_cert:
-          tls.crt: {}
-          tls.key: {}
+          tls_crt: {}
+          tls_key: {}

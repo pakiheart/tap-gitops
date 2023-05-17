@@ -8,9 +8,9 @@ tap_install:
           role_arn: arn:aws:iam::375783000519:role/ra-tap-view--tanzu-sync-secrets
       remote_refs:
         tap_gui_cert:
-          tls.crt:
+          tls_crt:
             key: dev/ra-tap-view/tap/tap-gui-cert-values
             property: tls.crt
-          tls.key:
+          tls_key:
             key: dev/ra-tap-view/tap/tap-gui-cert-values
             property: tls.key
