@@ -5,7 +5,7 @@ tap_install:
       aws:
         region: us-west-2
         tap_install_secrets:
-          role_arn: arn:aws:iam::375783000519:role/ra-tap-view--tanzu-sync-secrets
+          role_arn: arn:aws:iam::375783000519:role/ra-tap-view--tap-install-secrets
       remote_refs:
         tap_gui_cert:
           tls_crt:
