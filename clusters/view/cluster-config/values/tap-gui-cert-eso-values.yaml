@@ -1,12 +1,15 @@
 ---
-tap_install:
-  secrets:
-    eso:
-      aws:
-        region: us-west-2
-        tap_install_secrets:
-          role_arn: arn:aws:iam::375783000519:role/ra-tap-view--tap-install-secrets
-      remote_refs:
-        tap_sensitive_values:
-         tap-gui-cert-values_yaml:
-            key: dev/ra-tap-view/tap/tap-gui-cert-values.yaml
+secrets:
+  eso:
+    aws:
+      region: us-west-2
+      tanzu_sync_secrets:
+        role_arn: arn:aws:iam::375783000519:role/ra-tap-view--tanzu-sync-secrets
+    remote_refs:
+      tap_gui_cert:
+        tls.crt:
+          key: dev/ra-tap-view/tap/tap-gui-cert-values
+          property: ssh-privatekey
+        tls.key:
+          key: dev/ra-tap-view/tap/tap-gui-cert-values
+          property: ssh-knownhosts
