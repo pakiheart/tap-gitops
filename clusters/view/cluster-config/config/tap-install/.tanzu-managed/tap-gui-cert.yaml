@@ -29,5 +29,5 @@ spec:
     template:
       type: kubernetes.io/tls
       data:
-        tls.crt: "{{ .tls.crt | b64dec}}"
-        tls.key: "{{ .tls.key | b64dec }}"
+        tls.crt: "{{ .tls.crt }}"
+        tls.key: "{{ .tls.key }}"
