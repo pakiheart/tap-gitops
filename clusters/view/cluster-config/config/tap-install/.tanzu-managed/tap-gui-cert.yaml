@@ -15,9 +15,14 @@ spec:
   refreshInterval: "1m"
   data:
     - secretKey: tls.crt
-      remoteRef:  #@ data.values.tap_install.secrets.eso.remote_refs.tap_gui_cert.tls_crt
+      remoteRef:  
+        key: dev/ra-tap-view/tap/tap-gui-cert-values
+        property: tls.crt
     - secretKey: tls.key
-      remoteRef: #@ data.values.tap_install.secrets.eso.remote_refs.tap_gui_cert.tls_key
+      remoteRef: 
+        key: dev/ra-tap-view/tap/tap-gui-cert-values
+        property: tls.key
+
   target:
     name: tap-gui-cert
     creationPolicy: Owner
