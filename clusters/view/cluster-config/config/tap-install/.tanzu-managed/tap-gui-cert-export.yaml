@@ -19,6 +19,5 @@ metadata:
   name: tap-gui-cert
   namespace: default
 spec:
-  fromNamespace:
-  - "tap-install"
+  fromNamespace: tap-install
 
