@@ -4,7 +4,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: tap-gui-cert
-  namespace: tap-install
+  namespace: default
   annotations:
     kapp.k14s.io/change-group: eso/tap-gui-cert
     kapp.k14s.io/change-rule.0: "upsert after upserting eso/secretstore"
@@ -14,5 +14,7 @@ spec:
     kind: SecretStore
   refreshInterval: "1m"
   data:
-    - secretKey: tap-gui-cert-values.yaml
-      remoteRef: #@ data.values.secrets.eso.remote_refs.tap-gui-cert-values.tap-gui-cert-values_yaml
+    - secretKey: tls.crt
+      remoteRef: #@ data.values.secrets.eso.remote_refs.tap-gui-cert-values.tls.crt
+    - secretKey: tls.key
+      remoteRef: #@ data.values.secrets.eso.remote_refs.tap-gui-cert-values.tls.key
