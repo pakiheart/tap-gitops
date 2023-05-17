@@ -15,6 +15,6 @@ spec:
   refreshInterval: "1m"
   data:
     - secretKey: tls.crt
-      remoteRef: #@ data.values.secrets.eso.remote_refs.tap-gui-cert-values.tls.crt
+      remoteRef:  #@ data.values.tap_install.secrets.eso.remote_refs.tap_sensitive_values.tap-gui-cert-values_yaml.tls.crt
     - secretKey: tls.key
-      remoteRef: #@ data.values.secrets.eso.remote_refs.tap-gui-cert-values.tls.key
+      remoteRef: #@ data.values.tap_install.secrets.eso.remote_refs.tap_sensitive_values.tap-gui-cert-values_yaml.tls.key
