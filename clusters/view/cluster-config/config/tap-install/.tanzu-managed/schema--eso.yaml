@@ -28,3 +28,6 @@ tap_install:
           #@schema/examples ("AWS Secrets Manager", { "key": "dev/tap/sensitive-values.yaml" })
           #@schema/type any=True
           sensitive_tap_values_yaml: {}
+        tap_gui_cert:
+          tls.crt:
+          tls.key:
