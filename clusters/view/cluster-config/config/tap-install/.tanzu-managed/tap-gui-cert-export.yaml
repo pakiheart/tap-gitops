@@ -8,8 +8,6 @@ kind: SecretExport
 metadata:
   name: tap-gui-cert
   namespace: tap-install
-  annotations:
-    kapp.k14s.io/change-group: install-registry-export
 spec:
   toNamespaces:
   - default
