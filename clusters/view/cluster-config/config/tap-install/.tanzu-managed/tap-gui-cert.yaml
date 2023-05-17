@@ -13,8 +13,15 @@ spec:
     name: tap-install-secrets
     kind: SecretStore
   refreshInterval: "1m"
+  target:
+    type: kubernetes.io/tls
+    data:
+      ca.crt: "{{ .ca_crt | b64dec }}"
+      tls.crt: "{{ .tls_crt | b64dec }}"
+      tls.key: "{{ .tls_key | b64dec }}"
+
   data:
-    - secretKey: tls.crt
+    - secretKey: tls_crt
       remoteRef:  #@ data.values.tap_install.secrets.eso.remote_refs.tap_gui_cert.tls_crt
-    - secretKey: tls.key
+    - secretKey: tls_key
       remoteRef: #@ data.values.tap_install.secrets.eso.remote_refs.tap_gui_cert.tls_key
