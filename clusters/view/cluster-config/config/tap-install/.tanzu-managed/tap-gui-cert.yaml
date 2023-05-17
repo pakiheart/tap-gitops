@@ -1,0 +1,18 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: tap-gui-cert
+  namespace: tap-install
+  annotations:
+    kapp.k14s.io/change-group: eso/tap-gui-cert
+    kapp.k14s.io/change-rule.0: "upsert after upserting eso/secretstore"
+spec:
+  secretStoreRef:
+    name: tap-gui-cert-secrets
+    kind: SecretStore
+  refreshInterval: "1m"
+  data:
+    - secretKey: tap-gui-cert-values.yaml
+      remoteRef: #@ data.values.tap_install.secrets.eso.remote_refs.tap-gui-cert-values.tap-gui-cert-values_yaml

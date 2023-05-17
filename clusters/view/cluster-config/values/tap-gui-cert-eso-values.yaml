@@ -1,0 +1,12 @@
+---
+tap_install:
+  secrets:
+    eso:
+      aws:
+        region: us-west-2
+        tap_install_secrets:
+          role_arn: arn:aws:iam::375783000519:role/ra-tap-view--tap-install-secrets
+      remote_refs:
+        tap_sensitive_values:
+          sensitive_tap_values_yaml:
+            key: dev/ra-tap-view/tap/tap-gui-cert-values.yaml
