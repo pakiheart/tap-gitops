@@ -9,7 +9,7 @@ secrets:
       tap_gui_cert:
         tls.crt:
           key: dev/ra-tap-view/tap/tap-gui-cert-values
-          property: ssh-privatekey
+          property: tls.crt
         tls.key:
           key: dev/ra-tap-view/tap/tap-gui-cert-values
-          property: ssh-knownhosts
+          property: tls.crt
