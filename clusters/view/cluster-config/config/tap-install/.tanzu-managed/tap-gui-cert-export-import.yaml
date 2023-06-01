@@ -10,14 +10,14 @@ metadata:
   namespace: tap-install
 spec:
   toNamespaces:
-  - "*"
+  - "default"
 
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretImport
 metadata:
   name: tap-gui-cert
-  namespace: "*"
+  namespace: "default"
 spec:
   fromNamespace: tap-install
 
