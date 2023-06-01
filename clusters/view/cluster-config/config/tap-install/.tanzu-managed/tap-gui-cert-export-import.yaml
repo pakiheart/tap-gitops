@@ -10,7 +10,7 @@ metadata:
   namespace: tap-install
 spec:
   toNamespaces:
-  - "default"
+  - "tap-gui"
 
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
