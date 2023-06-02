@@ -6,7 +6,6 @@ tap_install:
 
     shared:
       ingress_domain: view.tap.raltaf.io
-      ingress_issuer: ""
       
     contour:
       envoy:
@@ -42,6 +41,3 @@ tap_install:
       ingress_enabled: "true"
       app_service_type: "ClusterIP"
       ns_for_export_app_cert: "*"
-      tls:
-        namespace: default
-        secretName: tap-gui-cert-rehan
