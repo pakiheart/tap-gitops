@@ -6,7 +6,7 @@
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretExport
 metadata:
-  name: tap-gui-cert
+  name: tap-gui-cert-rehan
   namespace: tap-install
 spec:
   toNamespaces:
@@ -16,7 +16,7 @@ spec:
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretImport
 metadata:
-  name: tap-gui-cert
+  name: tap-gui-cert-rehan
   namespace: "default"
 spec:
   fromNamespace: tap-install
