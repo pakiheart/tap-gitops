@@ -27,7 +27,7 @@ tap_install:
       #     policy: lax-scan-policy
       #   source:
       #     policy: lax-scan-policy
-
+  
     grype:
       namespace: dev
       targetImagePullSecret: "registries-credentials"
