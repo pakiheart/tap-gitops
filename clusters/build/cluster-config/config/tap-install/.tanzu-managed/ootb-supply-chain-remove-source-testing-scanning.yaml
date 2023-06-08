@@ -16,7 +16,7 @@ stringData:
       #@overlay/match by="name", expects="0+"
       #@overlay/remove
       - name: source-tester
-      
+
     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
     ---
     spec:
@@ -30,7 +30,7 @@ stringData:
     spec:
       resources:
       #@overlay/match by="name", expects="0+"
-      - name: source-scanner
+      - name: image-provider
         #@overlay/replace
         sources:
         - resource: source-provider
