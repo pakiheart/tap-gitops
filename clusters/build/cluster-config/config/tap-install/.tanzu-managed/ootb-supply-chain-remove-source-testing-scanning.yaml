@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ootb-supply-chain-remove-source-testing-scanning
+  namespace: tap-install
+type: Opaque
+stringData:
+  ootb-supply-chain-remove-source-testing-scanning.yaml: |
+    #@ load("@ytt:overlay", "overlay")
+    #@ load("@ytt:template", "template")
+        
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/remove
+      - name: source-tester
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/remove
+      - name: source-scanner
