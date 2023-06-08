@@ -9,6 +9,15 @@ stringData:
     #@ load("@ytt:overlay", "overlay")
     #@ load("@ytt:template", "template")
         
+    #@ def replace_value_to_default(left, right):
+    #@   if "default" in left:
+    #@     return left
+    #@   end
+    #@   param = dict(left)
+    #@   param.update({"default": param.pop("value")})
+    #@   return param
+    #@ end
+    
     #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
