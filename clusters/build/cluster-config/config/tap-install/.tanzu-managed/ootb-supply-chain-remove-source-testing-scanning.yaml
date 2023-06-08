@@ -35,3 +35,19 @@ stringData:
         sources:
         - resource: source-provider
           name: source
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      params:
+        #@overlay/match by="name", expects="0+"
+        #@overlay/replace via=replace_value_to_default
+        - name: maven_repository_url
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      params:
+        #@overlay/match by="name", expects="0+"
+        #@overlay/replace via=replace_value_to_default
+        - name: maven_repository_secret_name
