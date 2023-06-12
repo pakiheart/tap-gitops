@@ -13,14 +13,13 @@ tap_install:
     #ootb_supply_chain_basic:
     ootb_supply_chain_testing_scanning:
       gitops:
-        ssh_secret: ""
-        # ssh_secret: "sync-git-ssh"
-        # server_address: "ssh://git@github.com"
-        # repository_owner: "pakiheart"
-        # repository_name: "tap-gitops"
-        # branch: main
-        # namespace: tanzu-sync
-      
+        #ssh_secret: ""
+        ssh_secret: "sync-git-ssh"
+        server_address: "ssh://git@github.com"
+        repository_owner: "pakiheart"
+        repository_name: "tap-gitops"
+        branch: main
+        repository_prefix: https://github.com/tap-gitops/config-dir
       # scanning:
       #   image:
       #     policy: lax-scan-policy
