@@ -19,7 +19,7 @@ tap_install:
         repository_owner: "pakiheart"
         repository_name: "tap-gitops"
         branch: main
-        repository_prefix: git@github.com/tap-gitops/config-dir
+        # repository_prefix: git@github.com/tap-gitops/config-dir
       # scanning:
       #   image:
       #     policy: lax-scan-policy
