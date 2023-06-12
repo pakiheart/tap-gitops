@@ -48,6 +48,14 @@ tap_install:
       - git:
           url: ssh://git@github.com/pakiheart/tap-gitops
           ref: origin/main
+          subPath: credentials
+          secretRef:
+            name: sync-git-ssh-3
+            namespace: tanzu-sync
+            create_export: true
+      - git:
+          url: ssh://git@github.com/pakiheart/tap-gitops
+          ref: origin/main
           subPath: additional_resources
           secretRef:
             name: sync-git-ssh-2
