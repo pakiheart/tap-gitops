@@ -1,0 +1,19 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: maven-workload
+  labels:
+    apps.tanzu.vmware.com/workload-type: web
+    app.kubernetes.io/part-of: maven-workload
+    apps.tanzu.vmware.com/has-tests: "true"
+spec:
+  params:
+  - name: maven_repository_url
+    value: "https://artifactory.shared.learn.tapsme.org/artifactory/maven-local-tap"
+  - name: maven_repository_secret_name
+    value: maven-secret
+  - name: maven
+    value:
+      groupId: com.example
+      artifactId: demo
+      version: 0.0.1-SNAPSHOT
