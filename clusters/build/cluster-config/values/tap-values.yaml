@@ -12,6 +12,7 @@ tap_install:
     supply_chain: testing_scanning
     #ootb_supply_chain_basic:
     ootb_supply_chain_testing_scanning:
+      external_delivery: true
       gitops:
         deliverable_repository_owner: "pakiheart"
         deliverable_repository_name: "tap-gitops"
