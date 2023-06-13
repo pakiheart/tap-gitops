@@ -147,9 +147,9 @@ spec:
     apiVersion: v1
     kind: ConfigMap
     metadata:
-      name: #@ data.values.workload.metadata.name + "-deliverable"
+      name: #@ data.values.workload.metadata.name + "-gitops-deliverable"
       labels: #@ merge_labels({ "app.kubernetes.io/component": "config" })
 
     data:
       #@yaml/text-templated-strings
-      (@= data.values.workload.metadata.name @)-(@= data.values.workload.metadata.namespace @)-deliverable.yml: #@ yaml.encode(deliverable())
+      (@= data.values.workload.metadata.name @)-(@= data.values.workload.metadata.namespace @)-gitops-deliverable.yml: #@ yaml.encode(deliverable())
