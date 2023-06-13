@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: ootb-supply-chain-remove-source-testing-scanning
+  name: ootb-supply-chain-overlay
   namespace: tap-install
 type: Opaque
 stringData:
