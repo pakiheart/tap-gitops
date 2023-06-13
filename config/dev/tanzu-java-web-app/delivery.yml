@@ -39,6 +39,7 @@ spec:
         apps.tanzu.vmware.com/workload-type: web
         carto.run/workload-name: tanzu-java-web-app
         conventions.carto.run/framework: spring-boot
+        jeremy: stuff
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.path: actuator
         tanzu.app.live.view.application.actuator.port: "8080"
