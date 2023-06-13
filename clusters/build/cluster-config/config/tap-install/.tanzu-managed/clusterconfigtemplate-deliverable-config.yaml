@@ -24,16 +24,17 @@ spec:
     #@ end
 
     #@ def is_monorepo_approach():
-    #@   if 'gitops_server_address' in data.values.params and 'gitops_repository_owner' in data.values.params and 'gitops_repository_name' in data.values.params:
+    #@   if 'deliverable_server_address' in data.values.params and 'deliverable_repository_owner' in data.values.params and 'deliverable_repository_name' in data.values.params:
     #@     return True
     #@   end
-    #@   if 'gitops_server_address' in data.values.params or 'gitops_repository_owner' in data.values.params or 'gitops_repository_name' in data.values.params:
-    #@     'gitops_server_address' in data.values.params or assert.fail("missing param: gitops_server_address")
-    #@     'gitops_repository_owner' in data.values.params or assert.fail("missing param: gitops_repository_owner")
-    #@     'gitops_repository_name' in data.values.params or assert.fail("missing param: gitops_repository_name")
+    #@   if 'deliverable_server_address' in data.values.params or 'deliverable_repository_owner' in data.values.params or 'deliverable_repository_name' in data.values.params:
+    #@     'deliverable_server_address' in data.values.params or assert.fail("missing param: deliverable_server_address")
+    #@     'deliverable_repository_name' in data.values.params or assert.fail("missing param: deliverable_repository_owner")
+    #@     'deliverable_repository_name' in data.values.params or assert.fail("missing param: deliverable_repository_name")
     #@   end
     #@   return False
     #@ end
+
 
     #@ def has_git_params():
     #@   if 'gitops_repository_prefix' in data.values.params:
@@ -66,11 +67,20 @@ spec:
     #@ end
 
     #@ def mono_repository():
-    #@   strip_trailing_slash(data.values.params.gitops_server_address)
+    #@   strip_trailing_slash(data.values.params.deliverable_server_address)
+    #@   if param("gitops_server_kind") == "azure":
+    #@     return "/".join([
+    #@       strip_trailing_slash(data.values.params.deliverable_server_address),
+    #@       strip_trailing_slash(data.values.params.deliverable_repository_owner),
+    #@       "_git",
+    #@       data.values.params.deliverable_repository_name,
+    #@     ])
+    #@   end
+    #@
     #@   return "/".join([
-    #@     strip_trailing_slash(data.values.params.gitops_server_address),
-    #@     strip_trailing_slash(data.values.params.gitops_repository_owner),
-    #@     data.values.params.gitops_repository_name,
+    #@     strip_trailing_slash(data.values.params.deliverable_server_address),
+    #@     strip_trailing_slash(data.values.params.deliverable_repository_owner),
+    #@     data.values.params.deliverable_repository_name,
     #@   ]) + ".git"
     #@ end
 
