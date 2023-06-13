@@ -45,15 +45,15 @@ tap_install:
     namespace_provisioner:
       controller: false
       additional_sources:
-      - git:
-          url: ssh://git@github.com/pakiheart/tap-gitops
-          ref: origin/main
-          subPath: credentials
-          secretRef:
-            name: sync-git-ssh-3
-            namespace: tanzu-sync
-            create_export: true
-        path: _ytt_lib/workload-creds
+      # - git:
+      #     url: ssh://git@github.com/pakiheart/tap-gitops
+      #     ref: origin/main
+      #     subPath: credentials
+      #     secretRef:
+      #       name: sync-git-ssh-3
+      #       namespace: tanzu-sync
+      #       create_export: true
+      #   path: _ytt_lib/workload-creds
       - git:
           url: ssh://git@github.com/pakiheart/tap-gitops
           ref: origin/main
@@ -71,10 +71,10 @@ tap_install:
           name: sync-git-ssh
           namespace: tanzu-sync
           # create_export: true
-      import_data_values_secrets:
-      - name: tenant-secrets
-        namespace: tap-install
-        create_export: true
+      # import_data_values_secrets:
+      # - name: tenant-secrets
+      #   namespace: tap-install
+      #   create_export: true
       overlay_secrets:
       - name: workload-git-ssh-overlay
         namespace: tap-install
