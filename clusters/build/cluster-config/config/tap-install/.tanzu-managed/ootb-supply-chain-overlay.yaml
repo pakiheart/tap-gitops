@@ -81,7 +81,8 @@ stringData:
     spec:
       resources:
         #@overlay/match by="name", expects="0+"
-        - config: deliverable-config
+        - configs: 
+          name: deliverable-config
         #@overlay/append
         - name: deliverable-config-writer
           configs:
