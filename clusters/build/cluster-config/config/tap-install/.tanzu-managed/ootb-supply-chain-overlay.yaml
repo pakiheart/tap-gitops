@@ -127,5 +127,5 @@ stringData:
           - name: registry
             value: registry.harbor.learn.tapsme.org
         configs:
-          - resource: deliverable-config-writer
+          - resource: deliverable-config
             name: config          
