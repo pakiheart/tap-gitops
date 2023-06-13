@@ -119,7 +119,7 @@ spec:
 
         #@ if/end is_monorepo_approach():
         subPath: #@ "config/" + data.values.workload.metadata.namespace + "/" + data.values.workload.metadata.name
-
+    #@ end
 
     ---
     apiVersion: v1
