@@ -74,7 +74,7 @@ stringData:
       - name: deliverable_repository_name
         default: ""
       - name: deliverable_branch
-        default: main
+        default: ""
 
     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
     ---
