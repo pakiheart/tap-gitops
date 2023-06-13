@@ -67,6 +67,8 @@ stringData:
     spec:
       params:
       #@overlay/append
+      - name: deliverable_server_address
+        default: ""
       - name: deliverable_repository_owner
         default: ""
       - name: deliverable_repository_name
