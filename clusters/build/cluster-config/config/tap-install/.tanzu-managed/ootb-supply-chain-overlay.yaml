@@ -68,10 +68,10 @@ stringData:
       params:
       #@overlay/append
       - name: deliverable_server_address
-        default: #@ data.values.gitops.deliverable_server_address   
+        default: "ssh://git@github.com"  
       - name: deliverable_repository_owner
-        default: #@ data.values.gitops.deliverable_repository_owner 
+        default: "pakiheart" 
       - name: deliverable_repository_name
-        default: #@ data.values.gitops.deliverable_repository_name 
+        default: "tap-gitoops"
       - name: deliverable_branch
-        default: #@ data.values.gitops.deliverable_branch
+        default: main
