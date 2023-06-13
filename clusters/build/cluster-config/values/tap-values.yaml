@@ -82,4 +82,6 @@ tap_install:
     # package_overlays:
     # - name: "ootb-supply-chain-testing-scanning"
     #   secrets: 
-    #   - name: "ootb-supply-chain-remove-source-testing-scanning"
+    #   - name: "ootb-supply-chain-overlay"
+
+  # add deliverable params

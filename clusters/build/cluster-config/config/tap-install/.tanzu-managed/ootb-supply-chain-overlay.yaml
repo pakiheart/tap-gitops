@@ -5,7 +5,7 @@ metadata:
   namespace: tap-install
 type: Opaque
 stringData:
-  ootb-supply-chain-remove-source-testing-scanning.yaml: |
+  ootb-supply-chain-overlay.yaml: |
     #@ load("@ytt:overlay", "overlay")
     #@ load("@ytt:template", "template")
         
@@ -60,3 +60,16 @@ stringData:
         #@overlay/match by="name", expects="0+"
         #@overlay/replace via=replace_value_to_default
         - name: maven_repository_secret_name
+
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      params:
+      #@overlay/append
+      - name: deliverable_repository_owner
+        default: ""
+      - name: deliverable_repository_name
+        default: ""
+      - name: deliverable_branch
+        default: main
