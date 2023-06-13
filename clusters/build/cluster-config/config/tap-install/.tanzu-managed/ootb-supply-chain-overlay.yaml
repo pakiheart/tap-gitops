@@ -83,6 +83,11 @@ stringData:
       #@overlay/match by="name", expects="0+"
       - name: config-writer
       #@overlay/append
+      - name: deliverable-config
+        configs:
+        templateRef:
+          kind: ClusterConfigTemplate
+          name: config-deliverable-template      
       - name: deliverable-config-writer
         configs:
         - name: config
