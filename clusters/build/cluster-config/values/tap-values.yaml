@@ -71,10 +71,10 @@ tap_install:
           name: sync-git-ssh
           namespace: tanzu-sync
           # create_export: true
-      # import_data_values_secrets:
-      # - name: tenant-secrets
-      #   namespace: tap-install
-      #   create_export: true
+      import_data_values_secrets:
+      - name: tenant-secrets
+        namespace: tap-install
+        create_export: true
       overlay_secrets:
       - name: workload-git-ssh-overlay
         namespace: tap-install
