@@ -13,6 +13,7 @@ spec:
   ytt: |
     #@ load("@ytt:yaml", "yaml")
     #@ load("@ytt:data", "data")
+    #@ load("@ytt:assert", "assert")
 
     #@ def merge_labels(fixed_values):
     #@   labels = {}

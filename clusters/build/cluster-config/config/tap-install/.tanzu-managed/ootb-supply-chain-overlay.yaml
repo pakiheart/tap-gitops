@@ -72,22 +72,41 @@ stringData:
       - name: deliverable_repository_owner
         default: "pakiheart" 
       - name: deliverable_repository_name
-        default: "tap-gitops"
+        default: "tap-gitops-deliverable"
       - name: deliverable_branch
         default: main
+
+
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      #@overlay/remove
+      - name: deliverable
+
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      #@overlay/remove
+      - name: config-writer
 
     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
     ---
     spec:
       resources:
       #@overlay/match by="name", expects="0+"
-      - name: config-writer
+      - name: api-descriptors
       #@overlay/append
       - name: deliverable-config
         configs:
+          - resource: api-descriptors
+            name: config   
         templateRef:
           kind: ClusterConfigTemplate
-          name: config-deliverable-template      
+          name: config-deliverable-template  
       - name: deliverable-config-writer
         configs:
         - name: config
@@ -98,3 +117,15 @@ stringData:
         templateRef:
           kind: ClusterTemplate
           name: config-writer-deliverable-template
+      - name: config-writer
+        templateRef:
+          kind: ClusterTemplate
+          name: #@ config_writer()
+        params:
+          - name: serviceAccount
+            default: #@ data.values.service_account
+          - name: registry
+            value: #@ data.values.registry
+        configs:
+          - resource: deliverable-config-writer
+            name: config          
