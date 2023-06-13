@@ -97,6 +97,18 @@ spec:
     #@   return prefix + data.values.workload.metadata.name + ".git"
     #@ end
 
+    #@ def image():
+    #@   return "/".join([
+    #@    data.values.params.registry.server,
+    #@    data.values.params.registry.repository,
+    #@    "-".join([
+    #@      data.values.workload.metadata.name,
+    #@      data.values.workload.metadata.namespace,
+    #@      "bundle",
+    #@    ])
+    #@   ]) + ":" + data.values.workload.metadata.uid
+    #@ end
+
     #@ def deliverable():
     apiVersion: carto.run/v1alpha1
     kind: Deliverable

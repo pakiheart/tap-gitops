@@ -72,7 +72,7 @@ stringData:
       - name: deliverable_repository_owner
         default: "pakiheart" 
       - name: deliverable_repository_name
-        default: "tap-gitoops"
+        default: "tap-gitops"
       - name: deliverable_branch
         default: main
 
