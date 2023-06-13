@@ -68,10 +68,10 @@ stringData:
       params:
       #@overlay/append
       - name: deliverable_server_address
-        default: ""      
+        default: #@ data.values.gitops.deliverable_server_address   
       - name: deliverable_repository_owner
-        default: ""
+        default: #@ data.values.gitops.deliverable_repository_owner 
       - name: deliverable_repository_name
-        default: ""
+        default: #@ data.values.gitops.deliverable_repository_name 
       - name: deliverable_branch
-        default: ""
+        default: #@ data.values.gitops.deliverable_branch
