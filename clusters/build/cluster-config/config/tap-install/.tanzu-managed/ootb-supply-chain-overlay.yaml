@@ -120,12 +120,12 @@ stringData:
       - name: config-writer
         templateRef:
           kind: ClusterTemplate
-          name: #@ config_writer()
+          name: config-writer-template
         params:
           - name: serviceAccount
-            default: #@ data.values.service_account
+            default: default
           - name: registry
-            value: #@ data.values.registry
+            value: registry.harbor.learn.tapsme.org
         configs:
           - resource: deliverable-config-writer
             name: config          
