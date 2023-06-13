@@ -9,7 +9,7 @@ metadata:
     app.tanzu.vmware.com/deliverable-type: web
 spec:
   configPath: .data
-
+  lifecycle: mutable
   ytt: |
     #@ load("@ytt:yaml", "yaml")
     #@ load("@ytt:data", "data")
