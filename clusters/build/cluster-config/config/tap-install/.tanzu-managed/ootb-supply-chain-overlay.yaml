@@ -73,3 +73,21 @@ stringData:
         default: ""
       - name: deliverable_branch
         default: main
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      resources:
+        #@overlay/match by="name", expects="0+"
+        - name: deliverable-config
+        #@overlay/append
+          - name: deliverable-config-writer
+            configs:
+            - name: config
+              resource: deliverable-config    
+            params:
+            - name: serviceAccount
+              value: default
+            templateRef:
+              kind: ClusterTemplate
+              name: config-writer-deliverable-template

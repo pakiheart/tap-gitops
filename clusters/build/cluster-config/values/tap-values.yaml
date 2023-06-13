@@ -12,6 +12,10 @@ tap_install:
     supply_chain: testing_scanning
     #ootb_supply_chain_basic:
     ootb_supply_chain_testing_scanning:
+      deliverable_repository_owner: "pakiheart"
+      deliverable_repository_name: "tap-gitops"
+      deliverable_branch: main
+      deliverable_server_address: "ssh://git@github.com"
       gitops:
         #ssh_secret: ""
         ssh_secret: "git-auth"
@@ -84,4 +88,3 @@ tap_install:
       secrets: 
       - name: "ootb-supply-chain-overlay"
 
-  # add deliverable params
