@@ -1,9 +1,10 @@
 apiVersion: carto.run/v1alpha1
-kind: ClusterTemplate
+kind: ClusterConfigTemplate
 metadata:
   labels:
   name: config-writer-deliverable-template
 spec:
+  configPath: .data
   params:
   - default: default
     name: serviceAccount

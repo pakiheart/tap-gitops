@@ -115,7 +115,7 @@ stringData:
         - name: serviceAccount
           value: default
         templateRef:
-          kind: ClusterTemplate
+          kind: ClusterConfigTemplate
           name: config-writer-deliverable-template
       - name: config-writer
         templateRef:
