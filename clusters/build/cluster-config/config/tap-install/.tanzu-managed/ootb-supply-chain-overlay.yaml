@@ -80,17 +80,16 @@ stringData:
     ---
     spec:
       resources:
-        #@overlay/match by="name", expects="0+"
-        - configs: 
-          name: deliverable-config
-        #@overlay/append
-        - name: deliverable-config-writer
-          configs:
-          - name: config
-            resource: deliverable-config    
-          params:
-          - name: serviceAccount
-            value: default
-          templateRef:
-            kind: ClusterTemplate
-            name: config-writer-deliverable-template
+      #@overlay/match by="name", expects="0+"
+      - name: config-writer
+      #@overlay/append
+      - name: deliverable-config-writer
+        configs:
+        - name: config
+          resource: deliverable-config    
+        params:
+        - name: serviceAccount
+          value: default
+        templateRef:
+          kind: ClusterTemplate
+          name: config-writer-deliverable-template
