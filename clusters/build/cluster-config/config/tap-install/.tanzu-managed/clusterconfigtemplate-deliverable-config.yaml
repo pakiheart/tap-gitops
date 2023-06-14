@@ -86,24 +86,6 @@ spec:
     #@   return some_string
     #@ end
 
-    #@ def mono_repository():
-    #@   strip_trailing_slash(data.values.params.deliverable_server_address)
-    #@   if param("gitops_server_kind") == "azure":
-    #@     return "/".join([
-    #@       strip_trailing_slash(data.values.params.deliverable_server_address),
-    #@       strip_trailing_slash(data.values.params.deliverable_repository_owner),
-    #@       "_git",
-    #@       data.values.params.deliverable_repository_name,
-    #@     ])
-    #@   end
-    #@
-    #@   return "/".join([
-    #@     strip_trailing_slash(data.values.params.deliverable_server_address),
-    #@     strip_trailing_slash(data.values.params.deliverable_repository_owner),
-    #@     data.values.params.deliverable_repository_name,
-    #@   ]) + ".git"
-    #@ end
-
     #@ def git_repository():
     #@   if is_monorepo_approach():
     #@     return mono_repository()
