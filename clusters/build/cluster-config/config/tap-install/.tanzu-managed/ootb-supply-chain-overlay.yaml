@@ -90,14 +90,6 @@ stringData:
     spec:
       resources:
       #@overlay/match by="name", expects="0+"
-      #@overlay/remove
-      - name: config-writer
-
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
-    ---
-    spec:
-      resources:
-      #@overlay/match by="name", expects="0+"
       - name: api-descriptors
       #@overlay/append
       - name: deliverable-config
@@ -117,15 +109,3 @@ stringData:
         templateRef:
           kind: ClusterConfigTemplate
           name: config-writer-deliverable-template
-      - name: config-writer
-        templateRef:
-          kind: ClusterTemplate
-          name: config-writer-template
-        params:
-          - name: serviceAccount
-            default: default
-          - name: registry
-            value: registry.harbor.learn.tapsme.org
-        configs:
-          - resource: deliverable-config
-            name: config          
