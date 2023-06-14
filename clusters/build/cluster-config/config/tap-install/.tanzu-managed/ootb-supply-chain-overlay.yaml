@@ -107,7 +107,7 @@ stringData:
         - name: serviceAccount
           value: default
         templateRef:
-          kind: ClusterConfigTemplate
+          kind: ClusterTemplate
           name: config-writer-deliverable-template
 
     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
