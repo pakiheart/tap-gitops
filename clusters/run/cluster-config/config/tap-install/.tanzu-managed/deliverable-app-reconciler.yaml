@@ -4,6 +4,7 @@ metadata:
   name: deliverables
   namespace: tap-install
 spec:
+  serviceAccountName: default
   fetch:
   - git:
       url: ssh://git@github.com/pakiheart/tap-gitops-config.git
