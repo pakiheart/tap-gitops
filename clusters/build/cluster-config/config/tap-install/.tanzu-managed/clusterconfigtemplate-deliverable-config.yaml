@@ -15,6 +15,18 @@ spec:
     #@ load("@ytt:data", "data")
     #@ load("@ytt:assert", "assert")
 
+    #@ def is_monorepo_approach():
+    #@   if 'gitops_server_address' in data.values.params and 'gitops_repository_owner' in data.values.params and 'gitops_repository_name' in data.values.params:
+    #@     return True
+    #@   end
+    #@   if 'gitops_server_address' in data.values.params or 'gitops_repository_owner' in data.values.params or 'gitops_repository_name' in data.values.params:
+    #@     'gitops_server_address' in data.values.params or assert.fail("missing param: gitops_server_address")
+    #@     'gitops_repository_owner' in data.values.params or assert.fail("missing param: gitops_repository_owner")
+    #@     'gitops_repository_name' in data.values.params or assert.fail("missing param: gitops_repository_name")
+    #@   end
+    #@   return False
+    #@ end
+    
     #@ def merge_labels(fixed_values):
     #@   labels = {}
     #@   if hasattr(data.values.workload.metadata, "labels"):
