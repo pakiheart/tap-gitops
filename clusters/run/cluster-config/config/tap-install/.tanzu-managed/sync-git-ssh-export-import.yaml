@@ -1,0 +1,18 @@
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretExport
+metadata:
+  name: sync-git-ssh
+  namespace: tanzu-sync
+spec:
+  toNamespaces:
+  - "*"
+
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: sync-git-ssh
+  namespace: tap-install
+spec:
+  fromNamespace: tanzu-sync
