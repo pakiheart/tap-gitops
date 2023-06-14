@@ -131,14 +131,14 @@ spec:
   - configs:
     - name: config
       resource: api-descriptors
-    name: deliverable-config
+    name: create-deliverable
     templateRef:
       kind: ClusterConfigTemplate
       name: config-deliverable-template
   - configs:
     - name: config
-      resource: deliverable-config
-    name: deliverable-config-writer
+      resource: create-deliverable
+    name: write-deliverable
     params:
     - name: serviceAccount
       value: default
@@ -147,7 +147,7 @@ spec:
       name: config-writer-deliverable-template      
   - configs:
     - name: config
-      resource: api-descriptors
+      resource: write-deliverable
     name: config-writer
     params:
     - default: default
