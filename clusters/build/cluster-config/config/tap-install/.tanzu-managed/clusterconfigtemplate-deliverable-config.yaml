@@ -113,6 +113,10 @@ spec:
     #@    ])
     #@   ]) + ":" + data.values.workload.metadata.uid
     #@ end
+    
+    #@ def stringReturn():
+    #@   return "#@ data.values.git.branch"
+    #@ end
 
     #@ def deliverable():
     apiVersion: carto.run/v1alpha1
@@ -139,7 +143,7 @@ spec:
         git:
           url: #@ git_repository()
           ref:
-            branch: #@ data.values.git.branch
+            branch: #@ stringReturn()
 
         #@ if/end not is_gitops():
         image: #@ image()
