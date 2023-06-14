@@ -12,7 +12,7 @@ spec:
     default: {}
 
   healthRule:
-    singleConditionType: Ready
+    alwaysHealthy: {}
 
   ytt: |
     #@ load("@ytt:data", "data")

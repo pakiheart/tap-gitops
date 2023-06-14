@@ -31,6 +31,7 @@ spec:
   - default: main
     name: deliverable_branch
   resources:
+  
   - name: source-provider
     params:
     - default: default
@@ -40,6 +41,7 @@ spec:
     templateRef:
       kind: ClusterSourceTemplate
       name: source-template
+  
   - name: image-provider
     params:
     - default: default
@@ -73,6 +75,7 @@ spec:
           matchFields:
           - key: spec.params[?(@.name=="dockerfile")]
             operator: Exists
+ 
   - images:
     - name: image
       resource: image-provider
@@ -85,6 +88,7 @@ spec:
     templateRef:
       kind: ClusterImageTemplate
       name: image-scanner-template
+  
   - images:
     - name: image
       resource: image-scanner
@@ -95,6 +99,7 @@ spec:
     templateRef:
       kind: ClusterConfigTemplate
       name: convention-template
+  
   - configs:
     - name: config
       resource: config-provider
@@ -114,6 +119,7 @@ spec:
         selector:
           matchLabels:
             apps.tanzu.vmware.com/workload-type: worker
+  
   - configs:
     - name: app_def
       resource: app-config
@@ -121,6 +127,7 @@ spec:
     templateRef:
       kind: ClusterConfigTemplate
       name: service-bindings
+  
   - configs:
     - name: app_def
       resource: service-bindings
@@ -128,6 +135,7 @@ spec:
     templateRef:
       kind: ClusterConfigTemplate
       name: api-descriptors
+  
   - configs:
     - name: config
       resource: api-descriptors
@@ -135,6 +143,7 @@ spec:
     templateRef:
       kind: ClusterConfigTemplate
       name: config-deliverable-template
+  
   - configs:
     - name: config
       resource: create-deliverable
@@ -145,9 +154,10 @@ spec:
     templateRef:
       kind: ClusterConfigTemplate
       name: config-writer-deliverable-template      
+  
   - configs:
     - name: config
-      resource: write-deliverable
+      resource: api-descriptors
     name: config-writer
     params:
     - default: default
