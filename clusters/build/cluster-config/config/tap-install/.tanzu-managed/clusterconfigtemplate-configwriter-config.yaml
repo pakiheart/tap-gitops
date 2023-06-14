@@ -1,19 +1,17 @@
 apiVersion: carto.run/v1alpha1
 kind: ClusterConfigTemplate
 metadata:
-  labels:
-  name: config-writer-deliverable-template
+  name: config-writer
 spec:
-  configPath: .data
+  healthRule:
+    singleConditionType: Ready
+  lifecycle: mutable
+  configPath: .spec.inputs.params
   params:
   - default: default
     name: serviceAccount
-  - name: registry
-    default: {}
-
-  healthRule:
-    alwaysHealthy: {}
-
+  - default: {}
+    name: registry
   ytt: |
     #@ load("@ytt:data", "data")
     #@ load("@ytt:json", "json")
@@ -30,13 +28,13 @@ spec:
     #@ end
 
     #@ def is_monorepo_approach():
-    #@   if 'deliverable_server_address' in data.values.params and 'deliverable_repository_owner' in data.values.params and 'deliverable_repository_name' in data.values.params:
+    #@   if 'gitops_server_address' in data.values.params and 'gitops_repository_owner' in data.values.params and 'gitops_repository_name' in data.values.params:
     #@     return True
     #@   end
-    #@   if 'deliverable_server_address' in data.values.params or 'deliverable_repository_owner' in data.values.params or 'deliverable_repository_name' in data.values.params:
-    #@     'deliverable_server_address' in data.values.params or assert.fail("missing param: deliverable_server_address")
-    #@     'deliverable_repository_name' in data.values.params or assert.fail("missing param: deliverable_repository_owner")
-    #@     'deliverable_repository_name' in data.values.params or assert.fail("missing param: deliverable_repository_name")
+    #@   if 'gitops_server_address' in data.values.params or 'gitops_repository_owner' in data.values.params or 'gitops_repository_name' in data.values.params:
+    #@     'gitops_server_address' in data.values.params or assert.fail("missing param: gitops_server_address")
+    #@     'gitops_repository_owner' in data.values.params or assert.fail("missing param: gitops_repository_owner")
+    #@     'gitops_repository_name' in data.values.params or assert.fail("missing param: gitops_repository_name")
     #@   end
     #@   return False
     #@ end
@@ -72,23 +70,22 @@ spec:
     #@ end
 
     #@ def mono_repository():
-    #@   strip_trailing_slash(data.values.params.deliverable_server_address)
+    #@   strip_trailing_slash(data.values.params.gitops_server_address)
     #@   if param("gitops_server_kind") == "azure":
     #@     return "/".join([
-    #@       strip_trailing_slash(data.values.params.deliverable_server_address),
-    #@       strip_trailing_slash(data.values.params.deliverable_repository_owner),
+    #@       strip_trailing_slash(data.values.params.gitops_server_address),
+    #@       strip_trailing_slash(data.values.params.gitops_repository_owner),
     #@       "_git",
-    #@       data.values.params.deliverable_repository_name,
+    #@       data.values.params.gitops_repository_name,
     #@     ])
     #@   end
     #@
     #@   return "/".join([
-    #@     strip_trailing_slash(data.values.params.deliverable_server_address),
-    #@     strip_trailing_slash(data.values.params.deliverable_repository_owner),
-    #@     data.values.params.deliverable_repository_name,
+    #@     strip_trailing_slash(data.values.params.gitops_server_address),
+    #@     strip_trailing_slash(data.values.params.gitops_repository_owner),
+    #@     data.values.params.gitops_repository_name,
     #@   ]) + ".git"
     #@ end
-
 
     #@ def git_repository():
     #@   if is_monorepo_approach():
@@ -130,7 +127,7 @@ spec:
     apiVersion: carto.run/v1alpha1
     kind: Runnable
     metadata:
-      name: #@ data.values.workload.metadata.name + "-deliverable-config-writer"
+      name: #@ data.values.workload.metadata.name + "-config-writer"
       labels: #@ merge_labels({ "app.kubernetes.io/component": "config-writer" })
     spec:
       #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):

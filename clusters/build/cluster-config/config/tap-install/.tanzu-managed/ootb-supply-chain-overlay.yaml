@@ -90,11 +90,11 @@ stringData:
     spec:
       resources:
       #@overlay/match by="name", expects="0+"
-      - name: api-descriptors
+      - name: config-writer
       #@overlay/append
       - name: deliverable-config
         configs:
-          - resource: api-descriptors
+          - resource: config-writer
             name: config   
         templateRef:
           kind: ClusterConfigTemplate
@@ -109,3 +109,14 @@ stringData:
         templateRef:
           kind: ClusterConfigTemplate
           name: config-writer-deliverable-template
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      - name: config-writer
+        #@overlay/replace
+        templateRef:
+          kind: ClusterConfigTemplate
+          name: config-writer
