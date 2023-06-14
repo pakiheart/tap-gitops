@@ -9,6 +9,8 @@ metadata:
     app.tanzu.vmware.com/deliverable-type: web
 spec:
   configPath: .data
+  healthRule:
+    alwaysHealthy: {}
   lifecycle: mutable
   ytt: |
     #@ load("@ytt:yaml", "yaml")
