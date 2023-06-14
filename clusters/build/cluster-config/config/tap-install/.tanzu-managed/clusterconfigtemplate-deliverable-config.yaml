@@ -139,7 +139,7 @@ spec:
         git:
           url: #@ git_repository()
           ref:
-            branch: "#@ data.values.git.branch"
+            branch: #@ data.values.git.branch
 
         #@ if/end not is_gitops():
         image: #@ image()
