@@ -35,6 +35,9 @@ spec:
     #@     labels.update(data.values.workload.metadata.labels)
     #@   end
     #@   labels.update(fixed_values)
+    #@   if hasattr(data.values, "labels"):
+    #@     labels.update(data.values.labels)
+    #@   end
     #@   return labels
     #@ end
     
