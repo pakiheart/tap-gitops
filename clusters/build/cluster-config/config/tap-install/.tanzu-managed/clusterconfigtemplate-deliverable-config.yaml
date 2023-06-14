@@ -8,7 +8,7 @@ metadata:
   labels:
     app.tanzu.vmware.com/deliverable-type: web
 spec:
-  configPath: .data
+  configPath: .spec.inputs.params
   healthRule:
     alwaysHealthy: {}
   lifecycle: mutable
@@ -150,7 +150,7 @@ spec:
     kind: ConfigMap
     metadata:
       name: #@ data.values.workload.metadata.name + "-gitops-deliverable"
-      labels: #@ merge_labels({ "app.kubernetes.io/component": "config", "app.kubernetes.io": data.values.config })
+      labels: #@ merge_labels({ "app.kubernetes.io/component": "config" })
 
     data:
       #@yaml/text-templated-strings
