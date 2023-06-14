@@ -153,7 +153,7 @@ spec:
     kind: ConfigMap
     metadata:
       name: #@ data.values.workload.metadata.name + "-gitops-deliverable"
-      labels: #@ merge_labels({ "app.kubernetes.io/component": "config", "app.kubernetes.io/component": data.values.config })
+      labels: #@ merge_labels({ "app.kubernetes.io/component": "config", "app.kubernetes.io/nohup": data.values.config })
 
     data:
       #@yaml/text-templated-strings
