@@ -1,0 +1,172 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterSupplyChain
+metadata:
+  name: source-test-scan-to-url-test-run
+spec:
+  params:
+  - default: https://repo.maven.apache.org/maven2
+    name: maven_repository_url
+  - default: main
+    name: gitops_branch
+  - default: supplychain
+    name: gitops_user_name
+  - default: supplychain
+    name: gitops_user_email
+  - default: supplychain@cluster.local
+    name: gitops_commit_message
+  - default: git-auth
+    name: gitops_ssh_secret
+  - default: ssh://git@github.com
+    name: gitops_server_address
+  - default: pakiheart
+    name: gitops_repository_owner
+  - default: tap-gitops-config
+    name: gitops_repository_name
+  - default: ssh://git@github.com
+    name: deliverable_server_address
+  - default: pakiheart
+    name: deliverable_repository_owner
+  - default: tap-gitops-deliverable
+    name: deliverable_repository_name
+  - default: main
+    name: deliverable_branch
+  resources:
+  - name: source-provider
+    params:
+    - default: default
+      name: serviceAccount
+    - default: go-git
+      name: gitImplementation
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: source-template
+  - name: image-provider
+    params:
+    - default: default
+      name: serviceAccount
+    - name: registry
+      value:
+        ca_cert_data: ""
+        repository: tap-build/workloads
+        server: registry.harbor.learn.tapsme.org
+    - default: default
+      name: clusterBuilder
+    - default: ./Dockerfile
+      name: dockerfile
+    - default: ./
+      name: docker_build_context
+    - default: []
+      name: docker_build_extra_args
+    sources:
+    - name: source
+      resource: source-provider
+    templateRef:
+      kind: ClusterImageTemplate
+      options:
+      - name: kpack-template
+        selector:
+          matchFields:
+          - key: spec.params[?(@.name=="dockerfile")]
+            operator: DoesNotExist
+      - name: kaniko-template
+        selector:
+          matchFields:
+          - key: spec.params[?(@.name=="dockerfile")]
+            operator: Exists
+  - images:
+    - name: image
+      resource: image-provider
+    name: image-scanner
+    params:
+    - default: scan-policy
+      name: scanning_image_policy
+    - default: private-image-scan-template
+      name: scanning_image_template
+    templateRef:
+      kind: ClusterImageTemplate
+      name: image-scanner-template
+  - images:
+    - name: image
+      resource: image-scanner
+    name: config-provider
+    params:
+    - default: default
+      name: serviceAccount
+    templateRef:
+      kind: ClusterConfigTemplate
+      name: convention-template
+  - configs:
+    - name: config
+      resource: config-provider
+    name: app-config
+    templateRef:
+      kind: ClusterConfigTemplate
+      options:
+      - name: config-template
+        selector:
+          matchLabels:
+            apps.tanzu.vmware.com/workload-type: web
+      - name: server-template
+        selector:
+          matchLabels:
+            apps.tanzu.vmware.com/workload-type: server
+      - name: worker-template
+        selector:
+          matchLabels:
+            apps.tanzu.vmware.com/workload-type: worker
+  - configs:
+    - name: app_def
+      resource: app-config
+    name: service-bindings
+    templateRef:
+      kind: ClusterConfigTemplate
+      name: service-bindings
+  - configs:
+    - name: app_def
+      resource: service-bindings
+    name: api-descriptors
+    templateRef:
+      kind: ClusterConfigTemplate
+      name: api-descriptors
+  - configs:
+    - name: config
+      resource: api-descriptors
+    name: deliverable-config
+    templateRef:
+      kind: ClusterConfigTemplate
+      name: config-deliverable-template
+  - configs:
+    - name: config
+      resource: deliverable-config
+    name: deliverable-config-writer
+    params:
+    - name: serviceAccount
+      value: default
+    templateRef:
+      kind: ClusterConfigTemplate
+      name: config-writer-deliverable-template      
+  - configs:
+    - name: config
+      resource: api-descriptors
+    name: config-writer
+    params:
+    - default: default
+      name: serviceAccount
+    - name: registry
+      value:
+        ca_cert_data: ""
+        repository: tap-build/workloads
+        server: registry.harbor.learn.tapsme.org
+    templateRef:
+      kind: ClusterTemplate
+      name: config-writer-template
+  selector:
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/test-run: "test"
+  selectorMatchExpressions:
+  - key: apps.tanzu.vmware.com/workload-type
+    operator: In
+    values:
+    - web
+    - server
+    - worker
