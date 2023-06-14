@@ -7,8 +7,6 @@ metadata:
   namespace: tanzu-sync
   annotations:
     kapp.k14s.io/change-group: tanzu-sync-secrets
-    kapp.k14s.io/change-rule.0: "upsert after upserting eso/secretstore"
-    kapp.k14s.io/change-rule.1: "delete before deleting eso/secretstore"
 spec:
   secretStoreRef:
     name: tanzu-sync-secrets
@@ -21,3 +19,5 @@ spec:
       remoteRef: #@ data.values.secrets.eso.remote_refs.sync_git_ssh.ssh_private_key
     - secretKey: ssh-knownhosts
       remoteRef: #@ data.values.secrets.eso.remote_refs.sync_git_ssh.ssh_known_hosts
+
+
