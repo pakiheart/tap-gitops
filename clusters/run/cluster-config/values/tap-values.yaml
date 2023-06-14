@@ -26,7 +26,7 @@ tap_install:
         secretRef:
           name: sync-git-ssh
           namespace: tanzu-sync
-          create_export: true
+          #create_export: true
       # additional_sources:
       # - git:
       #     url: ssh://git@github.com/Mpluya/tap-namespaces
