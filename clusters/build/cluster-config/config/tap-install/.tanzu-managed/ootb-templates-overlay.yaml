@@ -12,7 +12,7 @@ stringData:
 
     #@ load("@ytt:overlay", "overlay")
 
-    #@overlay/match by=overlay.subset({"kind": "ClusterTemplate","metadata":{"name":"config-writer-template"}}), expects="0+"
+    #@overlay/match by=overlay.subset({"kind": "ClusterTemplate","metadata":{"name":"config-writer"}}), expects="0+"
     ---
     #@overlay/replace
     kind: ClusterConfigTemplate
