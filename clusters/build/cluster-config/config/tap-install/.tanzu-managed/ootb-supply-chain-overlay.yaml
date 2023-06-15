@@ -110,6 +110,7 @@ stringData:
           kind: ClusterTemplate
           name: config-writer-deliverable-template
 
+
     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
     ---
     spec:
@@ -120,3 +121,5 @@ stringData:
         templateRef:
           kind: ClusterConfigTemplate
           name: config-writer
+          
+         

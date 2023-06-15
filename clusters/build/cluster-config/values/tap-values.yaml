@@ -90,4 +90,7 @@ tap_install:
     - name: "ootb-supply-chain-testing-scanning"
       secrets: 
       - name: "ootb-supply-chain-overlay"
+    - name: "ootb-templates"
+      secrets: 
+      - name: "ootb-template-overlay"  
 

@@ -16,7 +16,7 @@ spec:
       ignoreUnknownComments: true
       inline:
         paths:
-          remove-lb.yml: |
+          update-branch.yml: |
             #@ load("@ytt:overlay", "overlay")
             #@overlay/match by=overlay.subset({"kind":"Deliverable"})
             ---
