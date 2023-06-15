@@ -13,18 +13,17 @@ spec:
         name: sync-git-ssh
   template:
   - ytt:
-    ignoreUnknownComments: true
-    inline:
-      paths:
-        modify-branch.yml: |
-          #@ load("@ytt:overlay", "overlay")
-          #@overlay/match by=overlay.all
-          ---
-          spec:
-            source:
-              git:
-                ref:
-                  branch: prod
+      ignoreUnknownComments: true
+      inline:
+        paths:
+          remove-lb.yml: |
+            #@ load("@ytt:overlay", "overlay")
+            #@overlay/match by=overlay.subset({"kind":"Service","metadata":{"name":"nginx"}})
+            ---
+            spec:
+              type: ClusterIP
+              #@overlay/remove
+              externalTrafficPolicy:    
   deploy:
   - kapp:
       rawOptions:
