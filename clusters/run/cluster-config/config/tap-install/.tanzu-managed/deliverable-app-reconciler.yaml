@@ -15,14 +15,15 @@ spec:
   - ytt:
     inline:
       paths:
-        #@ load("@ytt:overlay", "overlay")
-        #@overlay/match by=overlay.all
-        ---
-        spec:
-          source:
-            git:
-              ref:
-                branch: prod
+        modify-branch.yml: |
+          #@ load("@ytt:overlay", "overlay")
+          #@overlay/match by=overlay.all
+          ---
+          spec:
+            source:
+              git:
+                ref:
+                  branch: prod
   deploy:
   - kapp:
       rawOptions:
