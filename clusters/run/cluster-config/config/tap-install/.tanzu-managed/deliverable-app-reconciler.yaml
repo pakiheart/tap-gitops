@@ -13,11 +13,11 @@ spec:
         name: sync-git-ssh
   template:
   - ytt:
+    ignoreUnknownComments: true
     inline:
       paths:
         modify-branch.yml: |
           #@ load("@ytt:overlay", "overlay")
-          
           #@overlay/match by=overlay.all
           ---
           spec:
