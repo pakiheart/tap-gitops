@@ -18,7 +18,7 @@ spec:
         paths:
           update-branch.yml: |
             #@ load("@ytt:overlay", "overlay")
-            #@overlay/match by=overlay.subset({"kind":"Deliverable"})
+            #@overlay/match by=overlay.subset({"kind":"Deliverable"}), expects="0+"
             ---
             spec:
               source:
