@@ -18,12 +18,13 @@ spec:
         paths:
           remove-lb.yml: |
             #@ load("@ytt:overlay", "overlay")
-            #@overlay/match by=overlay.subset({"kind":"Service","metadata":{"name":"nginx"}})
+            #@overlay/match by=overlay.subset({"kind":"Deliverable"})
             ---
             spec:
-              type: ClusterIP
-              #@overlay/remove
-              externalTrafficPolicy:    
+              source:
+                git:
+                  ref:
+                    branch: prod   
   deploy:
   - kapp:
       rawOptions:
