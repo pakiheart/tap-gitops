@@ -120,6 +120,6 @@ stringData:
         #@overlay/replace
         templateRef:
           kind: ClusterConfigTemplate
-          name: config-writer
+          name: config-writer-template
           
          
