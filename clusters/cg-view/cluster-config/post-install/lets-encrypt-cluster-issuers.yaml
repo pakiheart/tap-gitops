@@ -14,17 +14,3 @@ spec:
           ingress:
             class: contour
 
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  namespace: cert-manager
-  name: tap-gui
-spec:
-  commonName: tap-gui.view.tap.raltaf.io
-  dnsNames:
-    - tap-gui.view.tap.raltaf.io
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  secretName: tap-gui
