@@ -25,6 +25,6 @@ spec:
   dnsNames:
     - tap-gui.view.tap.raltaf.io
   issuerRef:
-    name: letsencrypt-http01-issuer
+    name: letsencrypt-production
     kind: ClusterIssuer
   secretName: tap-gui
