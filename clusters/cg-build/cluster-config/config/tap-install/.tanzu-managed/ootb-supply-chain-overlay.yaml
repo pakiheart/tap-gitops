@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ootb-supply-chain-overlay
+  namespace: tap-install
+type: Opaque
+stringData:
+  ootb-supply-chain-overlay.yaml: |
+    #@ load("@ytt:overlay", "overlay")
+    #@ load("@ytt:template", "template")
+        
+    #@ def replace_value_to_default(left, right):
+    #@   if "default" in left:
+    #@     return left
+    #@   end
+    #@   param = dict(left)
+    #@   param.update({"default": param.pop("value")})
+    #@   return param
+    #@ end
+    
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      #@overlay/remove
+      - name: source-tester
+
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      #@overlay/remove
+      - name: source-scanner
+
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      - name: image-provider
+        #@overlay/replace
+        sources:
+        - resource: source-provider
+          name: source
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      params:
+        #@overlay/match by="name", expects="0+"
+        #@overlay/replace via=replace_value_to_default
+        - name: maven_repository_url
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      params:
+        #@overlay/match by="name", expects="0+"
+        #@overlay/replace via=replace_value_to_default
+        - name: maven_repository_secret_name
+
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      params:
+      #@overlay/append
+      - name: deliverable_server_address
+        default: "ssh://git@github.com"  
+      - name: deliverable_repository_owner
+        default: "pakiheart" 
+      - name: deliverable_repository_name
+        default: "tap-gitops-deliverable"
+      - name: deliverable_branch
+        default: main
+
+
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      #@overlay/remove
+      - name: deliverable
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      - name: config-writer
+      #@overlay/append
+      - name: deliverable-config
+        configs:
+          - resource: config-writer
+            name: config   
+        templateRef:
+          kind: ClusterConfigTemplate
+          name: config-deliverable-template  
+      - name: deliverable-config-writer
+        configs:
+        - name: config
+          resource: deliverable-config    
+        params:
+        - name: serviceAccount
+          value: default
+        templateRef:
+          kind: ClusterTemplate
+          name: config-writer-deliverable-template
+
+
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    ---
+    spec:
+      resources:
+      #@overlay/match by="name", expects="0+"
+      - name: config-writer
+        #@overlay/replace
+        templateRef:
+          kind: ClusterConfigTemplate
+          name: config-writer-template
+          
+         

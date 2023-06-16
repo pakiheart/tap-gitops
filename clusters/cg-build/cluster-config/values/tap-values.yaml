@@ -1,0 +1,94 @@
+---
+tap_install:
+  values:
+    profile: build
+    ceip_policy_disclosed: true
+
+    shared:
+      ingress_domain: build.tap.raltaf.io
+      image_registry:  
+        project_path: "registry.harbor.learn.tapsme.org/tap-build"
+    #supply_chain: basic
+    supply_chain: testing_scanning
+    #ootb_supply_chain_basic:
+    ootb_supply_chain_testing_scanning:
+      external_delivery: true
+      gitops:
+        deliverable_repository_owner: "pakiheart"
+        deliverable_repository_name: "tap-gitops-deliverable"
+        deliverable_branch: main
+        deliverable_server_address: "ssh://git@github.com"
+        #ssh_secret: ""
+        ssh_secret: "git-auth"
+        server_address: "ssh://git@github.com"
+        repository_owner: "pakiheart"
+        repository_name: "tap-gitops-config"
+        branch: main
+        # repository_prefix: git@github.com/tap-gitops/config-dir
+      # scanning:
+      #   image:
+      #     policy: lax-scan-policy
+      #   source:
+      #     policy: lax-scan-policy
+  
+    grype:
+      namespace: dev
+      targetImagePullSecret: "registries-credentials"
+      metadataStore:
+        url: "https://metadata-store.view.tap.raltaf.io"
+        caSecret:
+          name: store-ca-cert
+          importFromNamespace: metadata-store-secrets
+        authSecret:
+          name: store-auth-token
+          importFromNamespace: metadata-store-secrets
+
+    scanning:
+      metadataStore:
+        url: ""
+
+    namespace_provisioner:
+      controller: false
+      additional_sources:
+      - git:
+          url: ssh://git@github.com/pakiheart/tap-gitops
+          ref: origin/main
+          subPath: credentials
+          secretRef:
+            name: sync-git-ssh-3
+            namespace: tanzu-sync
+            create_export: true
+        path: _ytt_lib/workload-creds
+      - git:
+          url: ssh://git@github.com/pakiheart/tap-gitops
+          ref: origin/main
+          subPath: additional_resources
+          secretRef:
+            name: sync-git-ssh-2
+            namespace: tanzu-sync
+            create_export: true
+        path: _ytt_lib/workload-additional-resources
+      gitops_install:
+        url: ssh://git@github.com/pakiheart/tap-gitops
+        ref: origin/main
+        subPath: ns-provisioner
+        secretRef:
+          name: sync-git-ssh
+          namespace: tanzu-sync
+          # create_export: true
+      import_data_values_secrets:
+      - name: tenant-secrets
+        namespace: tap-install
+        create_export: true
+      overlay_secrets:
+      - name: workload-git-ssh-overlay
+        namespace: tap-install
+        create_export: true
+    package_overlays:
+    - name: "ootb-supply-chain-testing-scanning"
+      secrets: 
+      - name: "ootb-supply-chain-overlay"
+    - name: "ootb-templates"
+      secrets: 
+      - name: "ootb-template-overlay"  
+
