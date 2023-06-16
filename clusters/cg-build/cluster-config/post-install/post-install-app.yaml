@@ -13,7 +13,7 @@ spec:
         name: sync-git-ssh
       subPath: clusters/cg-build/cluster-config/post-install
   template:
-    ytt: {}
+  - ytt: {}
   deploy:
   - kapp:
       rawOptions:
