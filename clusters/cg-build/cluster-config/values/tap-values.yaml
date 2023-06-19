@@ -43,9 +43,9 @@ tap_install:
     #       name: store-auth-token
     #       importFromNamespace: metadata-store-secrets
 
-    scanning:
-      metadataStore:
-        url: ""
+    # scanning:
+    #   metadataStore:
+    #     url: ""
 
     namespace_provisioner:
       controller: false
