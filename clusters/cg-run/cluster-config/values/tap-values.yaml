@@ -1,0 +1,54 @@
+---
+tap_install:
+  values:
+    profile: run
+    ceip_policy_disclosed: true 
+    shared:
+      ingress_domain: run.tap.raltaf.io
+      # ingress_issuer: letsencrypt-production
+    supply_chain: basic
+    contour:
+      envoy:
+        service:
+          type: LoadBalancer
+    appliveview_connector:
+      backend:
+        ingressEnabled: true
+        host: appliveview.view.tap.raltaf.io
+    cnrs:
+      domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
+    namespace_provisioner:
+      controller: false
+      gitops_install:
+        url: ssh://git@github.com/pakiheart/tap-gitops
+        ref: origin/main
+        subPath: ns-provisioner
+        secretRef:
+          name: sync-git-ssh
+          namespace: tanzu-sync
+          #create_export: true
+      additional_sources:
+      - git:
+          url: ssh://git@github.com/pakiheart/tap-gitops
+          ref: origin/main
+          subPath: credentials
+          secretRef:
+            name: sync-git-ssh-2
+            namespace: tanzu-sync
+            create_export: true
+        path: _ytt_lib/workload-creds
+      # gitops_install:
+      #   ref: origin/main
+      #   subPath: ns-provisioner-base
+      #   url: ssh://git@github.com/Mpluya/tap-namespaces
+      #   secretRef:
+      #     name: sync-git-ssh
+      #     namespace: tanzu-sync
+      #     create_export: true
+      import_data_values_secrets:
+      - name: tenant-secrets
+        namespace: tap-install
+        create_export: true
+    api_auto_registration:
+      tap_gui_url: "https://tap-gui.view.tap.raltaf.io"
+      cluster_name: run
