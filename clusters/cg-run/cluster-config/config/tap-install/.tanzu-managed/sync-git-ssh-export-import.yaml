@@ -6,7 +6,7 @@ metadata:
   namespace: tanzu-sync
   annotations:
     kapp.k14s.io/change-group: se/sync-git-ssh
-    kapp.k14s.io/change-rule.0: "upsert after eso/tap-sensitive-values"  
+    kapp.k14s.io/change-rule.0: "upsert after upserting eso/tap-sensitive-values"  
 spec:
   toNamespaces:
   - "*"
