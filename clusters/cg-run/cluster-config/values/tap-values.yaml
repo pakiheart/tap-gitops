@@ -5,7 +5,7 @@ tap_install:
     ceip_policy_disclosed: true 
     shared:
       ingress_domain: run.tap.raltaf.io
-      # ingress_issuer: letsencrypt-production
+      ingress_issuer: letsencrypt-production
     supply_chain: basic
     contour:
       envoy:
