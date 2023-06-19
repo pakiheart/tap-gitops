@@ -50,5 +50,5 @@ tap_install:
         namespace: tap-install
         create_export: true
     api_auto_registration:
-      tap_gui_url: "https://tap-gui.view.prep.tapsme.org"
+      tap_gui_url: "https://tap-gui.view.tap.raltaf.io"
       cluster_name: run
