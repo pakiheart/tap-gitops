@@ -8,10 +8,10 @@ tap_install:
       ingress_domain: build.tap.raltaf.io
       image_registry:  
         project_path: "registry.harbor.learn.tapsme.org/tap-build"
-    supply_chain: basic
-    # supply_chain: testing_scanning
-    ootb_supply_chain_basic:
-    # ootb_supply_chain_testing_scanning:
+    #supply_chain: basic
+    supply_chain: testing_scanning
+    #ootb_supply_chain_basic:
+    ootb_supply_chain_testing_scanning:
       external_delivery: true
       gitops:
         deliverable_repository_owner: "pakiheart"
@@ -31,21 +31,21 @@ tap_install:
       #   source:
       #     policy: lax-scan-policy
   
-    # grype:
-    #   namespace: dev
-    #   targetImagePullSecret: "registries-credentials"
-    #   metadataStore:
-    #     url: "https://metadata-store.view.tap.raltaf.io"
-    #     caSecret:
-    #       name: store-ca-cert
-    #       importFromNamespace: metadata-store-secrets
-    #     authSecret:
-    #       name: store-auth-token
-    #       importFromNamespace: metadata-store-secrets
+    grype:
+      namespace: dev
+      targetImagePullSecret: "registries-credentials"
+      metadataStore:
+        url: "https://metadata-store.view.tap.raltaf.io"
+        caSecret:
+          name: store-ca-cert
+          importFromNamespace: metadata-store-secrets
+        authSecret:
+          name: store-auth-token
+          importFromNamespace: metadata-store-secrets
 
-    # scanning:
-    #   metadataStore:
-    #     url: ""
+    scanning:
+      metadataStore:
+        url: ""
 
     namespace_provisioner:
       controller: false
