@@ -17,5 +17,8 @@ kind: SecretImport
 metadata:
   name: sync-git-ssh
   namespace: tap-install
+  annotations:
+    kapp.k14s.io/change-group: se/sync-git-ssh
+    kapp.k14s.io/change-rule.0: "upsert after upserting tanzu-sync-secrets"    
 spec:
   fromNamespace: tanzu-sync
