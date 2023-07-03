@@ -3,7 +3,6 @@
 
 # Manual Process
 # ./setup-repo.sh CLUSTER-NAME eso
-# search and replace 1.5.0 with 1.5.1 in .tanzu dir
 # tanzu-sync/scripts/configure.sh
 # create tap-values.yaml
 # - provide TLS cert and limit TLSCERTDElgation to the required namespaces
@@ -62,7 +61,7 @@ fi
 # kubectl create secret generic kapp-controller-config --namespace tanzu-system --from-file caCerts=CUSTOM_CA_CERT
 # Kubectl apply -f daemonset.yaml 
 
-# ./tanzu-sync/scripts/bootstrap.sh
-# ./tanzu-sync/scripts/deploy.sh
+./tanzu-sync/scripts/bootstrap.sh
+./tanzu-sync/scripts/deploy.sh
 
 
