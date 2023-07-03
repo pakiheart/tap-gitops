@@ -92,17 +92,17 @@ stringData:
       #@overlay/match by="name", expects="0+"
       - name: config-writer
       #@overlay/append
-      - name: deliverable-config
+      - name: deliverable-cnfg
         configs:
           - resource: config-writer
             name: config   
         templateRef:
           kind: ClusterConfigTemplate
           name: config-deliverable-template  
-      - name: deliverable-config-writer
+      - name: deliverable-wrtr
         configs:
         - name: config
-          resource: deliverable-config    
+          resource: deliverable-cnfg    
         params:
         - name: serviceAccount
           value: default
