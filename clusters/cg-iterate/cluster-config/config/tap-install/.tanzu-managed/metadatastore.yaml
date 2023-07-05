@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metadata-store-secrets
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: store-ca-cert
+  namespace: metadata-store-secrets
+data:
+  ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIakNDQWdhZ0F3SUJBZ0lRTjhUYndETjJLamJnZjVxM0tjN25EREFOQmdrcWhraUc5dzBCQVFzRkFEQXAKTVNjd0pRWURWUVFERXg1MFlYQXRhVzVuY21WemN5MXpaV3htYzJsbmJtVmtMWEp2YjNRdFkyRXdIaGNOTWpNdwpOekExTVRZd05USXpXaGNOTWpNeE1EQXpNVFl3TlRJeldqQXBNU2N3SlFZRFZRUURFeDUwWVhBdGFXNW5jbVZ6CmN5MXpaV3htYzJsbmJtVmtMWEp2YjNRdFkyRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUsKQW9JQkFRQ29pOVpKRXllNU5zNnJ1SG1HOUJTVG82ZGdYdFl1M2tRNmN2dEtZRGZoNVRybEhiczk3K3RzOEl5bgoxV2IyQ3NXSkR5UWhZWjZvdTVsS3MzSjN3YitESWZWeEVhLzdCeGEwMFNhaWF5LzZibTVMOUJNaGVwdnVxK29kCnlPN0hHS0YzL1oweE1IYnZQMGFQK3g5UWJhY2hlNTFucnRtUUpUWHRHQ1ZhZEN1bXJHSjBpQ0tYR05WNnpTbEIKT0Z3VGlBbUpFUmd2R205VGNCbXNScEtUUmxDYjFBNEdFWEg3MU1YUEVYZFJmK1lYRUZWbm51ODZQaEtvWkpIaAptaVFGV3dEN1czS3RoaXhjMkJkTVFkRDMwVjc3WThyR2o0NW0zeTFaLzgzWVdEcmZRYWtaNzRrSVB2K2h0OVRKCkJNY1RjbzlBL21acVNzd3NiTTBwdXBJRXY4ZHhBZ01CQUFHalFqQkFNQTRHQTFVZER3RUIvd1FFQXdJQ3BEQVAKQmdOVkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlIwbFcxSXdrNThHL3RxR0lDS0NCNzlpZnJPdGpBTgpCZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFPc0VLU2tESjRINnNBVmk3cnFnQWRZU2ZNeVV4dCtQU1JDcWFkbmcxCmdOWXdkeE1QN0w3T05tMVNwTlU0MjZvdlVmVUIrd3Y4WmxLazF4VjdZc0RhRURXektXTDZjcUhGcktMM2NtVjQKRHFIN1NhNnI1dStFY0FTT2RVUlorbVJycTdTMlFLMzdPcDc3bnFndVpRMmhXbFRndzBoOFd5WHNVd1BrN013ZQpYaS9tUk5LZU9jZ2xsZm1DUHZiWWFFWDBUeXIrMzA4MjN2NUhwL0t6bFMrNHNuRnBRNW82MFRZaHo2MnFMZHJnCi82dkdhS0UzeXByQmVvWnd4V3ErN0pyWE1LRUFpTFlSa2kxeFpLTzVEZEM0d2M3QzVJMEtvODhnNmJSSUlKMG4KbW1naklYVTZRSHF1ODdnVFd1Ujg0MWdySm5JTjhXQnZQTktXUkxuT3ZWYWtEdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: store-auth-token
+  namespace: metadata-store-secrets
+spec:
+  secretStoreRef:
+    name: cluster-secret-store
+    kind: ClusterSecretStore
+  refreshInterval: "0m"
+  data:
+  - secretKey: auth_token
+    remoteRef:
+      key: dev/ra-tap-iterate/tap/tenant-install-secrets
+      property: auth_token
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretExport
+metadata:
+  name: store-ca-cert
+  namespace: metadata-store-secrets
+spec:
+  toNamespaces: 
+  - "*"
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretExport
+metadata:
+  name: store-auth-token
+  namespace: metadata-store-secrets
+spec:
+  toNamespaces: 
+  - "*"

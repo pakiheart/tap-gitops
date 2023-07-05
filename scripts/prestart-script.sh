@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO: Add more check if things already exist etc....
 
 # Manual Process
 # ./setup-repo.sh CLUSTER-NAME eso
@@ -23,7 +24,7 @@ if [ $# -eq 0 ]; then
 fi
 
 
-#cd repo/clusters/${EKS_CLUSTER_NAME}
+
 
 
 ./create-policies.sh
@@ -40,28 +41,57 @@ aws secretsmanager create-secret \
 EOF
 )"
 
-aws secretsmanager create-secret \
+exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tanzu-sync/install-registry-dockerconfig" | jq  .SecretList | jq length)
+if ["$exists" -eq "1"]
+then
+
+   aws secretsmanager update-secret \
+   --secret-id "$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tanzu-sync/install-registry-dockerconfig" | jq  -r '.SecretList[0].ARN')"  \
+   --secret-string "$(cat ../secrets/install-registry-dockerconfig.json)"
+else 
+   aws secretsmanager create-secret \
    --name dev/${EKS_CLUSTER_NAME}/tanzu-sync/install-registry-dockerconfig \
    --secret-string "$(cat ../secrets/install-registry-dockerconfig.json)"
+fi
 
-aws secretsmanager create-secret \
+exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml" | jq  .SecretList | jq length)
+if ["$exists" -eq "1"]
+then
+   aws secretsmanager update-secret \
+   --secret-id "$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml" | jq  -r '.SecretList[0].ARN')"  \
+   --secret-string "$(cat ../secrets/sensitive_values_${EKS_CLUSTER_NAME}.json)"
+else 
+   aws secretsmanager create-secret \
    --name dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml \
    --secret-string "$(cat ../secrets/sensitive_values_${EKS_CLUSTER_NAME}.json)"
-
-if [ "$1" == "build" ] || [ "$1" == "run" ] || [ "$1" == "iterate" ]; then  
-   aws secretsmanager create-secret \
-      --name dev/${EKS_CLUSTER_NAME}/tap/tenant-install-secrets \
-      --secret-string "$(cat ../secrets/tenant_install_secrets_${EKS_CLUSTER_NAME}.json)"
 fi
 
 
+if [ "$1" == "build" ] || [ "$1" == "run" ] || [ "$1" == "iterate" ]; then  
+   exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml" | jq  .SecretList | jq length)
+   if ["$exists" -eq "1"]
+   then
+      aws secretsmanager update-secret \
+      --secret-id "$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/tenant-install-secrets" | jq  -r '.SecretList[0].ARN')"  \
+      --secret-string "$(cat ../secrets/tenant_install_secrets_${EKS_CLUSTER_NAME}.json)"
+   else 
+      aws secretsmanager create-secret \
+      --name dev/${EKS_CLUSTER_NAME}/tap/tenant-install-secrets \
+      --secret-string "$(cat ../secrets/tenant_install_secrets_${EKS_CLUSTER_NAME}.json)"
+   fi
+fi
 
+
+kubectl create namespace tap-install
+
+# NOTE: Only needed for custom CA
 # kubectl create secret tls wildcard-cert --key="KEY-FILE-NAME.key" --cert="CERTIFICATE-FILE-NAME.crt" -n tanzu-system
 # kubectl delete secret kapp-controller-config --namespace tanzu-system
 # kubectl create secret generic kapp-controller-config --namespace tanzu-system --from-file caCerts=CUSTOM_CA_CERT
 # Kubectl apply -f daemonset.yaml 
 
-./tanzu-sync/scripts/bootstrap.sh
-./tanzu-sync/scripts/deploy.sh
+cd ..//clusters/${EKS_CLUSTER_NAME}
+../tanzu-sync/scripts/bootstrap.sh
+../tanzu-sync/scripts/deploy.sh
 
-
+kubectl apply -f cluster-config/post-install-app.yaml
