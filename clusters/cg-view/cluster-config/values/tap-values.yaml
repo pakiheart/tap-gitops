@@ -15,7 +15,7 @@ tap_install:
 
     tap_gui:
       tls:
-        namespace: default
+        namespace: tap-install
         secretName: tap-gui-cert-rehan
       metadataStoreAutoconfiguration: true
       service_type: ClusterIP
@@ -35,7 +35,7 @@ tap_install:
     appliveview:
       ingressEnabled: true
       tls:
-        namespace: default
+        namespace: tap-install
         secretName: tap-gui-cert-rehan
 
     metadata_store:
@@ -43,5 +43,5 @@ tap_install:
       app_service_type: "ClusterIP"
       ns_for_export_app_cert: "*"
       tls:
-        namespace: default
+        namespace: tap-install
         secretName: tap-gui-cert-rehan
