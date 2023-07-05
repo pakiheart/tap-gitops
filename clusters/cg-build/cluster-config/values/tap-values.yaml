@@ -31,17 +31,17 @@ tap_install:
       #   source:
       #     policy: lax-scan-policy
   
-    # grype:
-    #   namespace: dev
-    #   targetImagePullSecret: "registries-credentials"
-    #   metadataStore:
-    #     url: "https://metadata-store.view.tap.raltaf.io"
-    #     caSecret:
-    #       name: store-ca-cert
-    #       importFromNamespace: metadata-store-secrets
-    #     authSecret:
-    #       name: store-auth-token
-    #       importFromNamespace: metadata-store-secrets
+    grype:
+      namespace: dev
+      targetImagePullSecret: "registries-credentials"
+      metadataStore:
+        url: "https://metadata-store.view.tap.raltaf.io"
+        caSecret:
+          name: store-ca-cert
+          importFromNamespace: metadata-store-secrets
+        authSecret:
+          name: store-auth-token
+          importFromNamespace: metadata-store-secrets
 
     scanning:
       metadataStore:
