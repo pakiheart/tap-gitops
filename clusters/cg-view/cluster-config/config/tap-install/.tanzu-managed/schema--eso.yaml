@@ -28,3 +28,14 @@ tap_install:
           #@schema/examples ("AWS Secrets Manager", { "key": "dev/tap/sensitive-values.yaml" })
           #@schema/type any=True
           sensitive_tap_values_yaml: {}
+        #@schema/title "tap_gui_cert Secret"
+        #@schema/desc "Mapping of Secret key-to-ESO remote references of sensitive data used to authenticate with the git repository that is the source of truth for this Tanzu Sync (i.e. the 'sync-git-ssh' Secret)."
+        tap_gui_cert:
+          #@schema/desc "ESO remote reference of the private portion of account SSH key or deploy token."
+          #@schema/type any=True
+          #@schema/examples ("AWS Secrets Manager (default scheme)", { "key": "dev/tanzu-sync/sync-git-ssh", "property": "ssh-privatekey" })
+          tls_crt: {}
+          #@schema/desc "ESO remote reference of the private portion of account SSH key or deploy token."
+          #@schema/type any=True
+          #@schema/examples ("AWS Secrets Manager (default scheme)", { "key": "dev/tanzu-sync/sync-git-ssh", "property": "ssh-privatekey" })
+          tls_key: {}
