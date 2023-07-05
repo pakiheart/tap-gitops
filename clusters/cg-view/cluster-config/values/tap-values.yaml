@@ -34,14 +34,14 @@ tap_install:
 
     appliveview:
       ingressEnabled: true
-      tls:
-        namespace: tap-install
-        secretName: tap-gui-cert-rehan
+      # tls:
+      #   namespace: tap-install
+      #   secretName: tap-gui-cert-rehan
 
     metadata_store:
       ingress_enabled: "true"
       app_service_type: "ClusterIP"
       ns_for_export_app_cert: "*"
-      tls:
-        namespace: tap-install
-        secretName: tap-gui-cert-rehan
+      # tls:
+      #   namespace: tap-install
+      #   secretName: tap-gui-cert-rehan
