@@ -6,6 +6,7 @@ tap_install:
 
     shared:
       ingress_domain: iterate.tap.raltaf.io
+      ingress_issuer: letsencrypt-production
       image_registry:  
         project_path: "registry.harbor.learn.tapsme.org/tap-build"
     supply_chain: basic
