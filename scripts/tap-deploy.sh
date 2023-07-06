@@ -50,7 +50,7 @@ EOF
 )"
 
 exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tanzu-sync/install-registry-dockerconfig" | jq  .SecretList | jq length)
-if ["$exists" -eq "1"]
+if [ "$exists" -eq "1" ]
 then
 
    aws secretsmanager update-secret \
@@ -63,7 +63,7 @@ else
 fi
 
 exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml" | jq  .SecretList | jq length)
-if ["$exists" -eq "1"]
+if [ "$exists" -eq "1" ]
 then
    aws secretsmanager update-secret \
    --secret-id "$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml" | jq  -r '.SecretList[0].ARN')"  \
@@ -76,8 +76,8 @@ fi
 
 
 if [ "$1" == "build" ] || [ "$1" == "run" ] || [ "$1" == "iterate" ]; then  
-   exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/sensitive-values.yaml" | jq  .SecretList | jq length)
-   if ["$exists" -eq "1"]
+   exists=$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/tenant-install-secrets" | jq  .SecretList | jq length)
+   if [ "$exists" -eq "1" ]
    then
       aws secretsmanager update-secret \
       --secret-id "$(aws secretsmanager list-secrets --filter Key="name",Values="dev/${EKS_CLUSTER_NAME}/tap/tenant-install-secrets" | jq  -r '.SecretList[0].ARN')"  \
@@ -98,8 +98,8 @@ kubectl create namespace tap-install
 # kubectl create secret generic kapp-controller-config --namespace tanzu-system --from-file caCerts=CUSTOM_CA_CERT
 # Kubectl apply -f daemonset.yaml 
 
-cd ..//clusters/${EKS_CLUSTER_NAME}
-../tanzu-sync/scripts/bootstrap.sh
-../tanzu-sync/scripts/deploy.sh
+cd ../clusters/${EKS_CLUSTER_NAME}
+# ../tanzu-sync/scripts/bootstrap.sh
+# ../tanzu-sync/scripts/deploy.sh
 
-kubectl apply -f cluster-config/post-install-app.yaml
+# kubectl apply -f cluster-config/post-install-app.yaml
