@@ -14,16 +14,16 @@ tap_install:
     ootb_supply_chain_testing_scanning:
       external_delivery: true
       gitops:
-        deliverable_repository_owner: "pakiheart"
-        deliverable_repository_name: "tap-gitops-deliverable"
-        deliverable_branch: main
-        deliverable_server_address: "ssh://git@github.com"
-        #ssh_secret: ""
-        ssh_secret: "git-auth"
-        server_address: "ssh://git@github.com"
-        repository_owner: "pakiheart"
-        repository_name: "tap-gitops-config"
-        branch: main
+        # deliverable_repository_owner: "pakiheart"
+        # deliverable_repository_name: "tap-gitops-deliverable"
+        # deliverable_branch: main
+        # deliverable_server_address: "ssh://git@github.com"
+        ssh_secret: ""
+        # ssh_secret: "git-auth"
+        # server_address: "ssh://git@github.com"
+        # repository_owner: "pakiheart"
+        # repository_name: "tap-gitops-config"
+        # branch: main
         # repository_prefix: git@github.com/tap-gitops/config-dir
       # scanning:
       #   image:
