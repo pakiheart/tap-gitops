@@ -24,6 +24,14 @@ if [ $# -eq 0 ]; then
 fi
 
 
+read -p "Is this the correct k8s context: $(kubectl config current-context) (y/n): " answer
+if [ "$answer" == "y" ] || [ "$answer" == "yes" ]
+then
+        echo "You accepted the consequences!!!!"
+else
+        exit 1
+fi
+
 
 
 
