@@ -84,10 +84,10 @@ tap_install:
       - name: workload-git-ssh-overlay
         namespace: tap-install
         create_export: true
-    package_overlays:
-    - name: "ootb-supply-chain-testing-scanning"
-      secrets: 
-      - name: "ootb-supply-chain-overlay"
+    # package_overlays:
+    # - name: "ootb-supply-chain-testing-scanning"
+    #   secrets: 
+    #   - name: "ootb-supply-chain-overlay"
     # - name: "ootb-templates"
     #   secrets: 
     #   - name: "ootb-template-overlay"  
