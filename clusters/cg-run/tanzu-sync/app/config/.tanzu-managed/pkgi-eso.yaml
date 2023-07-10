@@ -16,7 +16,7 @@ spec:
     #! - ESO can only be installed once in a cluster
     #! - TAP provides secrets management to workflows through ESO
     #! ==> Use the version included in the TAP PackageRepository
-    versionSelection: 0.9.0-build.0
+    versionSelection: "0.9.0-build.0"
 ---
 #! Stub-out CRDs until it is created by ESO package
 #!   see also: https://carvel.dev/blog/incorporating-external-resources-in-kapp/#real-world-example-gatekeeper
