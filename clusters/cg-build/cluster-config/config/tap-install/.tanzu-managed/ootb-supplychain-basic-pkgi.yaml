@@ -1,0 +1,19 @@
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  name: ootb-supply-chain-basic
+  namespace: tap-install
+  annotations:
+    kapp.k14s.io/change-group: pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgr"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgr"
+spec:
+  serviceAccountName: tap-installer-sa
+  packageRef:
+    refName: ootb-supply-chain-basic.tanzu.vmware.com
+    versionSelection:
+      constraints: ">0.13.6"
+  values:
+    - secretRef:
+        name: ootb-basic-values

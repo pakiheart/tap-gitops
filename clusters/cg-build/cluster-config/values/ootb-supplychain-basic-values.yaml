@@ -1,0 +1,35 @@
+ootb_supplychain_basic_install:
+  registry:                                 
+    ca_cert_data: ""                        
+    server: registry.harbor.learn.tapsme.org
+    repository: tap-build/workloads         
+  external_delivery: true
+  # carvel_package:
+  #   workflow_enabled: true
+  #   name_suffix: cssa.vmware.com
+  #   openapiv3_enabled: true
+  gitops:
+    deliverable_repository_owner: "pakiheart"
+    deliverable_repository_name: "tap-gitops-deliverable"
+    deliverable_branch: main
+    deliverable_server_address: "ssh://git@github.com"
+    #ssh_secret: ""
+    ssh_secret: "git-auth"
+    server_address: "ssh://git@github.com"
+    repository_owner: "pakiheart"
+    repository_name: "tap-gitops-config"
+    branch: main
+  cluster_builder: default
+  service_account: default
+  git_implementation: go-git
+  supported_workloads:
+  - type: web
+    cluster_config_template_name: config-template
+  - type: server
+    cluster_config_template_name: server-template
+  - type: worker
+    cluster_config_template_name: worker-template
+  maven:
+    repository:
+      url: "https://artifactory.shared.learn.tapsme.org/artifactory/maven-local-tap"
+      secret_name: maven-secret
