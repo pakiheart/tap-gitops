@@ -111,7 +111,7 @@ stringData:
           name: config-writer-deliverable-template
 
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       resources:
