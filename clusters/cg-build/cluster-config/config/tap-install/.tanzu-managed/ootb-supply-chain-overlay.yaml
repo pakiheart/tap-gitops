@@ -45,7 +45,7 @@ stringData:
         - resource: source-provider
           name: source
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       params:
@@ -53,7 +53,7 @@ stringData:
         #@overlay/replace via=replace_value_to_default
         - name: maven_repository_url
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       params:
@@ -62,7 +62,7 @@ stringData:
         - name: maven_repository_secret_name
 
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       params:
@@ -77,7 +77,7 @@ stringData:
         default: main
 
 
-    #@overlay/match by=overlay.subset({"apiVersion": "carto.run/v1alpha1", "kind": "ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
+     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       resources:
@@ -85,7 +85,7 @@ stringData:
       #@overlay/remove
       - name: deliverable
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+     #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain","metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       resources:
