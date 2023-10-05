@@ -85,7 +85,7 @@ stringData:
       #@overlay/remove
       - name: deliverable
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}),"metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       resources:
@@ -111,7 +111,7 @@ stringData:
           name: config-writer-deliverable-template
 
 
-    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), expects="0+"
+    #@overlay/match by=overlay.subset({"kind":"ClusterSupplyChain"}), "metadata":{"name":"source-test-scan-to-url"}}), expects="0+"
     ---
     spec:
       resources:
