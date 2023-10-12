@@ -26,8 +26,8 @@ stringData:
       #@overlay/append
       - name: e2e-test
         templateRef:
-          kind: ClusterSourceTemplate
-          name: delivery-source-template
+          kind: ClusterTemplate
+          name: e2e-testing-cluster-template
         sources:
         - resource: deployer
           name: source
