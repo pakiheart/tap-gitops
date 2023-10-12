@@ -28,3 +28,6 @@ stringData:
         templateRef:
           kind: ClusterSourceTemplate
           name: delivery-source-template
+        sources:
+        - resource: deployer
+          name: source
