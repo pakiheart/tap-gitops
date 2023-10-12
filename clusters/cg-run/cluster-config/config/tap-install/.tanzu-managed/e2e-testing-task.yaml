@@ -15,8 +15,8 @@ spec:
       image:  registry.harbor.learn.tapsme.org/library/alpine-curl-jq@sha256:9d6c9b8d08e8cc17acf67b514706561265b26d0ced7a8d4f891f421d6ed476f7
       script: |
         #!/usr/bin/env bash
-
-        result="$(curl -I -s https://appsso-starter-java.jeremy.run.prep.tapsme.org/home | head -n 1|cut -d$' ' -f2)"
+        sleep 30;
+        result="$(curl -I -s https://tanzu-java-web-app-dev.run.tap.raltaf.io | head -n 1|cut -d$' ' -f2)"
         echo $result
         if [[ ${result} == "200" ]]; then
           echo "e2e-testing::PASSED"
