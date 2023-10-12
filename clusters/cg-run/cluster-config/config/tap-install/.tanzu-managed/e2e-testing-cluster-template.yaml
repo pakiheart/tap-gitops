@@ -30,7 +30,7 @@ spec:
       serviceAccountName: #@ data.values.workload.spec.serviceAccountName
 
       runTemplateRef:
-        name: tekton-e2e-testing-taskrun
+        name: tekton-e2e-testing-run-template
 
       inputs:
         serviceAccount: #@ data.values.params.serviceAccount
