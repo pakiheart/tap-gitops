@@ -16,9 +16,9 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        result="$(curl -I -s http://www.example.org | head -n 1|cut -d$' ' -f2)"
+        result="$(curl -I -s https://tanzu-java-web-app-dev.run.tap.raltaf.io | head -n 1|cut -d$' ' -f2)"
         
-        if [[ ${result} == "100" ]]; then
+        if [[ ${result} == "200" ]]; then
           echo "e2e-testing::PASSED"
         else
           echo "e2e-testing::FAILED"
