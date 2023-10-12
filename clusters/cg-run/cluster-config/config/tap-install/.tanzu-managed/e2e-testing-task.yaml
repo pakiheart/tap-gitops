@@ -16,8 +16,8 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        result="$(curl -I -s https://tanzu-java-web-app-dev.run.tap.raltaf.io | head -n 1|cut -d$' ' -f2)"
-        
+        result="$(curl -I -s https://appsso-starter-java.jeremy.run.prep.tapsme.org/home | head -n 1|cut -d$' ' -f2)"
+        echo $result
         if [[ ${result} == "200" ]]; then
           echo "e2e-testing::PASSED"
         else
