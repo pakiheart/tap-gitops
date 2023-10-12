@@ -23,7 +23,8 @@ spec:
     kind: Runnable
     metadata:
       name: #@ data.values.workload.metadata.name + "-e2e-testing"
-      labels: #@ merge_labels({ "app.kubernetes.io/component": "e2e-testing" })
+      labels: 
+        "app.kubernetes.io/component": "e2e-testing" 
     spec:
       #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):
       serviceAccountName: #@ data.values.workload.spec.serviceAccountName
