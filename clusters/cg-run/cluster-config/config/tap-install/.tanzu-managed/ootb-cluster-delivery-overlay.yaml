@@ -25,3 +25,6 @@ stringData:
       #@overlay/match by="name", expects="0+"
       #@overlay/append
       - name: end-to-end-testing
+        templateRef:
+          kind: ClusterSourceTemplate
+          name: delivery-source-template
