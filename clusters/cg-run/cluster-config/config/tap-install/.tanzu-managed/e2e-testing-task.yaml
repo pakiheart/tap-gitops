@@ -10,13 +10,6 @@ metadata:
     tekton.dev/displayName: "e2e testing"
     tekton.dev/platforms: "linux/amd64"
 spec:
-  params:
-    - name: source-url
-      description: Location of the source code
-    - name: source-revision
-      description: i.e. git hash
-      default: ""
- 
   steps:
     - name: e2e-testing
       image:  registry.harbor.learn.tapsme.org/library/alpine-curl-jq@sha256:9d6c9b8d08e8cc17acf67b514706561265b26d0ced7a8d4f891f421d6ed476f7
