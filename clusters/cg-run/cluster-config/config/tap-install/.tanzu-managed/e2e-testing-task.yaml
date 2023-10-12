@@ -18,7 +18,7 @@ spec:
 
         result="$(curl -I -s http://www.example.org | head -n 1|cut -d$' ' -f2)"
         
-        if [[ ${result} == "100" ]]; then
+        if [[ ${result} == "200" ]]; then
           echo "e2e-testing::PASSED"
         else
           echo "e2e-testing::FAILED"
