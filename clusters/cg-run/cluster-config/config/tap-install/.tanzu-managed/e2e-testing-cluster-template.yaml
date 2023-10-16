@@ -13,7 +13,7 @@ spec:
   
   template:
     apiVersion: carto.run/v1alpha1
-    kind: Task
+    kind: TaskRun
     metadata:
       name: -e2e-testing   
     spec:
