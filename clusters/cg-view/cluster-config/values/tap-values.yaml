@@ -25,14 +25,14 @@ tap_install:
       app_config:
         app:
           baseUrl: https://tap-gui.view.tap.raltaf.io
-        # catalog:
-        #   locations:
-        #     - type: url
-        #       target: https://github.com/pakiheart/yel-catalog/blob/main/catalog-info.yaml
-        # backend:
-        #   baseUrl: https://tap-gui.view.tap.raltaf.io
-        #   cors:
-        #     origin: https://tap-gui.view.tap.raltaf.io
+        catalog:
+          locations:
+            - type: url
+              target: https://github.com/pakiheart/tap-catalogs/blob/main/catalog-info.yaml
+        backend:
+          baseUrl: https://tap-gui.view.tap.raltaf.io
+          cors:
+            origin: https://tap-gui.view.tap.raltaf.io
         
 
     appliveview:
