@@ -18,8 +18,8 @@ spec:
       name: -e2e-testing   
     spec:
    
-      runTemplateRef:
-        name: tekton-e2e-testing-run-template
+      taskRef:
+        name: tekton-e2e-testing-taskrun
 
       inputs:
         taskRef:
