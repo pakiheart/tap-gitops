@@ -1,5 +1,3 @@
-#@ load("@ytt:data", "data")
-
 ---
 apiVersion: carto.run/v1alpha1
 kind: ClusterTemplate
@@ -12,22 +10,18 @@ spec:
   healthRule:
     singleConditionType: Ready
   lifecycle: tekton
-
   
   template:
     apiVersion: carto.run/v1alpha1
     kind: Task
     metadata:
-      name: #@ data.values.workload.metadata.name + "-e2e-testing"
-      labels: #@ merge_labels({ "app.kubernetes.io/component": "e2e-testing" })
+      name: -e2e-testing   
     spec:
-      #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):
-      serviceAccountName: #@ data.values.workload.spec.serviceAccountName
+   
+      runTemplateRef:
+        name: tekton-e2e-testing-run-template
 
-      taskRef:
-        name: tekton-e2e-testing-taskrun
       inputs:
-        serviceAccount: #@ data.values.params.serviceAccount
         taskRef:
           kind: ClusterTask
           name: e2e-testing-clustertask
