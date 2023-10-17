@@ -15,13 +15,21 @@ spec:
     apiVersion: carto.run/v1alpha1
     kind: TaskRun
     metadata:
-      name: -e2e-testing   
+      generateName: e2e-testing-
     spec:
-   
-      taskRef:
-        name: tekton-e2e-testing-taskrun
+      serviceAccountName: default
+      taskSpec:
+        steps:
+        - name: e2e-testing
+          image:  registry.harbor.learn.tapsme.org/library/alpine-curl-jq@sha256:9d6c9b8d08e8cc17acf67b514706561265b26d0ced7a8d4f891f421d6ed476f7
+          script: |
+            #!/usr/bin/env bash
 
-      inputs:
-        taskRef:
-          kind: ClusterTask
-          name: e2e-testing-clustertask
+            result="$(curl -I -s https://www.google.com | head -n 1|cut -d$' ' -f2)"
+            echo $result
+            if [[ ${result} == "200" ]]; then
+              echo "e2e-testing::PASSED"
+            else
+              echo "e2e-testing::FAILED"
+              exit 1
+            fi
