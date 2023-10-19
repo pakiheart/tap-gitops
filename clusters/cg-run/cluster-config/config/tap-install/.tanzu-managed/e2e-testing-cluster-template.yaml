@@ -1,3 +1,5 @@
+#@ load("@ytt:data", "data")
+
 ---
 apiVersion: carto.run/v1alpha1
 kind: ClusterTemplate
@@ -9,20 +11,42 @@ spec:
       default: default
   healthRule:
     singleConditionType: Ready
-  lifecycle: tekton
+
   
-  template:
+  #@yaml/text-templated-strings
+  ytt: |
+    #@ load("@ytt:data", "data")
+    #@ load("@ytt:json", "json")
+
+    #@ def merge_labels(fixed_values):
+    #@   labels = {}
+    #@   if hasattr(data.values.workload.metadata, "labels"):
+    #@     exclusions = ""
+    #@     for k,v in dict(data.values.workload.metadata.labels).items():
+    #@       if k not in exclusions:
+    #@         labels[k] = v
+    #@       end
+    #@     end
+    #@   end
+    #@   labels.update(fixed_values)
+    #@   return labels
+    #@ end
+
+    ---
     apiVersion: carto.run/v1alpha1
-    kind: Task
+    kind: Runnable
     metadata:
-      name: e2e-testing
-   
+      name: #@ data.values.workload.metadata.name + "-e2e-testing"
+      labels: #@ merge_labels({ "app.kubernetes.io/component": "e2e-testing" })
     spec:
-   
+      #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):
+      serviceAccountName: #@ data.values.workload.spec.serviceAccountName
+
       runTemplateRef:
         name: tekton-e2e-testing-run-template
 
       inputs:
+        serviceAccount: #@ data.values.params.serviceAccount
         taskRef:
           kind: ClusterTask
           name: e2e-testing-clustertask
