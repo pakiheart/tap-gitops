@@ -13,4 +13,147 @@ spec:
       - http01:
           ingress:
             class: contour
-
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: install-registry-dockerconfig
+  namespace: cert-manager
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+spec:
+  fromNamespace: tanzu-sync
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-acme-http01-solver
+  namespace: cert-manager
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+imagePullSecrets:
+  - name: install-registry-dockerconfig
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: install-registry-dockerconfig
+  namespace: tap-gui
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+spec:
+  fromNamespace: tanzu-sync
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-acme-http01-solver
+  namespace: tap-gui
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+imagePullSecrets:
+  - name: install-registry-dockerconfig
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: install-registry-dockerconfig
+  namespace: api-portal
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+spec:
+  fromNamespace: tanzu-sync
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-acme-http01-solver
+  namespace: api-portal
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+imagePullSecrets:
+  - name: install-registry-dockerconfig
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: install-registry-dockerconfig
+  namespace: app-live-view
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+spec:
+  fromNamespace: tanzu-sync
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-acme-http01-solver
+  namespace: app-live-view
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+imagePullSecrets:
+  - name: install-registry-dockerconfig
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: install-registry-dockerconfig
+  namespace: accelerator-system
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+spec:
+  fromNamespace: tanzu-sync
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-acme-http01-solver
+  namespace: accelerator-system
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+imagePullSecrets:
+  - name: install-registry-dockerconfig
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: install-registry-dockerconfig
+  namespace: metadata-store
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+spec:
+  fromNamespace: tanzu-sync
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-acme-http01-solver
+  namespace: metadata-store
+  annotations:
+    kapp.k14s.io/change-group: post-pkgi
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkgi"
+    kapp.k14s.io/change-rule.1: "delete before deleting pkgi"
+imagePullSecrets:
+  - name: install-registry-dockerconfig
