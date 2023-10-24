@@ -13,6 +13,10 @@ spec:
       - http01:
           ingress:
             class: contour
+            podTemplate:
+              spec:
+                serviceAccountName: tap-acme-http01-solver
+            
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretImport
