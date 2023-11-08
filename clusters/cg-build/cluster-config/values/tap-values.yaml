@@ -25,11 +25,11 @@ tap_install:
         repository_name: "tap-gitops-config"
         branch: main
         # repository_prefix: git@github.com/tap-gitops/config-dir
-      # scanning:
-      #   image:
-      #     policy: lax-scan-policy
-      #   source:
-      #     policy: lax-scan-policy
+      scanning:
+        image:
+          policy: lax-scan-policy
+        source:
+          policy: lax-scan-policy
   
     grype:
       namespace: dev
