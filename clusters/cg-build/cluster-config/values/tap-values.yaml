@@ -53,7 +53,6 @@ tap_install:
           secretRef:
             name: sync-git
             namespace: tanzu-sync
-            create_export: true
         path: _ytt_lib/workload-creds
       - git:
           url: ssh://git@github.com/pakiheart/tap-gitops
@@ -62,7 +61,6 @@ tap_install:
           secretRef:
             name: sync-git
             namespace: tanzu-sync
-            create_export: true
         path: _ytt_lib/workload-additional-resources
       gitops_install:
         url: ssh://git@github.com/pakiheart/tap-gitops
