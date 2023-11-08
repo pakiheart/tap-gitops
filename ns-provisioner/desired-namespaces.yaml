@@ -6,3 +6,6 @@ namespaces:
 - name: dev
   #! scanpolicies: ["lax-scan-policy"]
   #! pipelines: ["java"]
+- name: rehan
+  #! scanpolicies: ["lax-scan-policy"]
+  #! pipelines: ["java"]

@@ -51,7 +51,7 @@ tap_install:
           ref: origin/main
           subPath: credentials
           secretRef:
-            name: sync-git-3
+            name: sync-git
             namespace: tanzu-sync
             create_export: true
         path: _ytt_lib/workload-creds
@@ -60,7 +60,7 @@ tap_install:
           ref: origin/main
           subPath: additional_resources
           secretRef:
-            name: sync-git-2
+            name: sync-git
             namespace: tanzu-sync
             create_export: true
         path: _ytt_lib/workload-additional-resources
