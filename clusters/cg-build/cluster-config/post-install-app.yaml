@@ -10,7 +10,7 @@ spec:
       url: ssh://git@github.com/pakiheart/tap-gitops.git
       ref: origin/main
       secretRef: 
-        name: sync-git-ssh
+        name: sync-git
       subPath: clusters/cg-build/cluster-config/post-install
   template:
   - ytt: {}

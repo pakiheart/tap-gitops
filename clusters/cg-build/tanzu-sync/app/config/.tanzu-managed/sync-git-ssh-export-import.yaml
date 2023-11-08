@@ -2,7 +2,7 @@
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretExport
 metadata:
-  name: sync-git-ssh
+  name: sync-git
   namespace: tanzu-sync
   annotations:
     kapp.k14s.io/change-group: se/sync-git-ssh
@@ -15,7 +15,7 @@ spec:
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretImport
 metadata:
-  name: sync-git-ssh
+  name: sync-git
   namespace: tap-install
   annotations:
     kapp.k14s.io/change-group: se/sync-git-ssh
