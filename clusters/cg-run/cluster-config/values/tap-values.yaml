@@ -35,18 +35,17 @@ tap_install:
         ref: origin/main
         subPath: ns-provisioner
         secretRef:
-          name: sync-git-ssh
+          name: sync-git
           namespace: tanzu-sync
-          #create_export: true
+          create_export: true
       additional_sources:
       - git:
           url: ssh://git@github.com/pakiheart/tap-gitops
           ref: origin/main
           subPath: credentials
           secretRef:
-            name: sync-git-ssh-2
+            name: sync-git
             namespace: tanzu-sync
-            create_export: true
         path: _ytt_lib/workload-creds
       import_data_values_secrets:
       - name: tenant-secrets
