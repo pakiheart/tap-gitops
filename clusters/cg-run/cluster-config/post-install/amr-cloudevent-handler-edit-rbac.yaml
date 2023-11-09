@@ -1,0 +1,58 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tanzu:amr:observer:editor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tanzu:amr:observer:edit
+subjects:
+  - kind: ServiceAccount
+    name: amr-observer-editor
+    namespace: amr-observer-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: tanzu:amr:observer:edit
+rules:
+  - apiGroups: ["cloudevents.amr.apps.tanzu.vmware.com"]
+    resources: ["*"]
+    verbs: ["update"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: amr-observer-editor
+  namespace: amr-observer-system
+  annotations:
+automountServiceAccountToken: false
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: amr-observer-editor-token
+  namespace: amr-observer-system
+spec:
+  secretStoreRef:
+    name: tenant-cluster-secret-store
+    kind: ClusterSecretStore
+  refreshInterval: "1m"
+  target:
+    template:
+      metadata:
+        annotations:
+          kubernetes.io/service-account.name: amr-observer
+      data:
+        ca.crt: "{{ .amr_observer_ca_crt | b64dec }}"
+        token: "{{ .amr_observer_auth_token | b64dec }}"
+  data:
+  - secretKey: amr_observer_ca_crt
+    remoteRef:
+      key: dedev/ra-tap-build/tap/tenant-install-secrets
+      property: amr_observer_ca_crt
+  - secretKey: amr_observer_auth_token
+    remoteRef:
+      key: dev/ra-tap-build/tap/tenant-install-secrets
+      property: amr_observer_auth_token

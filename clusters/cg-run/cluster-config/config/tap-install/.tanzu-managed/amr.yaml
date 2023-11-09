@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: amr-observer-system
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: amr-observer-edit-token
+  namespace: amr-observer-system
+spec:
+  secretStoreRef:
+    name: cluster-secret-store
+    kind: ClusterSecretStore
+  refreshInterval: "0m"
+  data:
+  - secretKey: auth_token
+    remoteRef:
+      key: dev/ra-tap-build/tap/tenant-install-secrets
+      property: auth_token
