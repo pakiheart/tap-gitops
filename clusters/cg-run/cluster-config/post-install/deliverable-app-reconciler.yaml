@@ -10,7 +10,7 @@ spec:
       url: ssh://git@github.com/pakiheart/tap-gitops-deliverable.git
       ref: origin/main
       secretRef: 
-        name: sync-git-ssh
+        name: sync-git
   template:
   - ytt:
       ignoreUnknownComments: true
