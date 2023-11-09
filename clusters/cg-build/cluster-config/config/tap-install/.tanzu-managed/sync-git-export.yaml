@@ -1,9 +1,0 @@
----
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretExport
-metadata:
-  name: sync-git
-  namespace: tanzu-sync
-spec:
-  toNamespaces:
-  - "*"
