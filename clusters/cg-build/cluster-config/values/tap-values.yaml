@@ -37,9 +37,9 @@ tap_install:
         # repository_prefix: git@github.com/tap-gitops/config-dir
       scanning:
         image:
-          policy: lax-scan-policy
+          policy: scan-policy
         source:
-          policy: lax-scan-policy
+          policy: scan-policy
   
     grype:
       namespace: dev
