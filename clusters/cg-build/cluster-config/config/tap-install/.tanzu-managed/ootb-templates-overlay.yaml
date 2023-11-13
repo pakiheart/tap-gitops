@@ -18,4 +18,4 @@ stringData:
     kind: ClusterConfigTemplate
     spec:
       #@overlay/match missing_ok=True
-      configPath: .spec.inputs.params
+      configPath: .data
