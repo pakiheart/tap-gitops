@@ -147,8 +147,8 @@ tap_install:
     api_auto_registration:
       tap_gui_url: "https://tap-gui.view.tap.raltaf.io"
       cluster_name: run
-    # package_overlays:
-    # - name: "ootb-delivery-basic"
-    #   secrets: 
-    #   - name: "ootb-cluster-delivery-overlay"
+    package_overlays:
+    - name: "ootb-delivery-basic"
+      secrets: 
+      - name: "ootb-cluster-delivery-overlay"
  
