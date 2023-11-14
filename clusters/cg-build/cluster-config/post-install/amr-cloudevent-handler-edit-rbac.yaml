@@ -39,14 +39,6 @@ spec:
     name: cluster-secret-store
     kind: ClusterSecretStore
   refreshInterval: "1m"
-  target:
-    template:
-      metadata:
-        annotations:
-          kubernetes.io/service-account.name: amr-observer
-      data:
-        ca.crt: "{{ .amr_observer_ca_crt }}"
-        token: "{{ .amr_observer_auth_token }}"
   data:
   - secretKey: amr_observer_ca_crt
     remoteRef:
