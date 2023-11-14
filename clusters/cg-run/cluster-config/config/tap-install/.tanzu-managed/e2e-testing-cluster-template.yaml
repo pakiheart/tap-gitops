@@ -33,7 +33,6 @@ spec:
     #@   return labels
     #@ end
 
-  ---
     apiVersion: tekton.dev/v1beta1
     kind: TaskRun
     metadata:
