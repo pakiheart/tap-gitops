@@ -24,7 +24,7 @@ spec:
               source:
                 git:
                   ref:
-                    branch: run   
+                    branch: main   
   deploy:
   - kapp:
       rawOptions:
