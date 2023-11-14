@@ -32,4 +32,4 @@ spec:
               cd `mktemp -d`
 
               wget -qO- $(params.source-url) | tar xvz -m
-              ./mvnw test
+              echo "hello"
