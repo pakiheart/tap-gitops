@@ -3,9 +3,9 @@
 namespaces:
 #! The only required parameter is the name of the namespace. All additional values provided here 
 #! for a namespace will be available under data.values for templating additional sources
-- name: dev
+- name: dev-ns
   scanpolicies: ["scan-policy"]
   pipelines: ["java"]
-- name: rehan
+- name: rehan-ns
   scanpolicies: ["scan-policy"]
   pipelines: ["java"]
