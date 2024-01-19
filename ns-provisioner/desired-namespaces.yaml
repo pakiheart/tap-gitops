@@ -6,6 +6,9 @@ namespaces:
 - name: dev-ns
   scanpolicies: ["scan-policy"]
   pipelines: ["java"]
+  rolebinding: ["dev-ns"]
 - name: rehan-ns
   scanpolicies: ["scan-policy"]
   pipelines: ["java"]
+- name: test
+  
